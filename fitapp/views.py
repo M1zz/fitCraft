@@ -1,4 +1,6 @@
-import simplejson as json
+import json
+import os
+#import fitbit
 
 from dateutil import parser
 from dateutil.relativedelta import relativedelta
@@ -40,6 +42,9 @@ def login(request):
         `fitbit-login`
     """
     next_url = request.GET.get('next', None)
+    # check the url
+    print "next_url : ",next_url
+
     if next_url:
         request.session['fitbit_next'] = next_url
     else:
@@ -48,6 +53,11 @@ def login(request):
     callback_uri = request.build_absolute_uri(reverse('fitbit-complete'))
     fb = utils.create_fitbit(callback_uri=callback_uri)
     token_url, code = fb.client.authorize_token_url(redirect_uri=callback_uri)
+    
+    #complete
+    print "callback_uri : ",callback_uri
+    print "fb : ",fb
+    print "token_url : ",token_url
 
     return redirect(token_url)
 
@@ -74,15 +84,21 @@ def complete(request):
     """
     try:
         code = request.GET['code']
+        print "code : ",code
     except KeyError:
+        print "KeyError",KeyError
         return redirect(reverse('fitbit-error'))
 
     callback_uri = request.build_absolute_uri(reverse('fitbit-complete'))
     fb = utils.create_fitbit(callback_uri=callback_uri)
+    print "callback_uri : ",callback_uri
     try:
         token = fb.client.fetch_access_token(code, callback_uri)
+        print token
         access_token = token['access_token']
         fitbit_user = token['user_id']
+        print "access_token : ",access_token
+        print "fitbit_user : ",fitbit_user
     except KeyError:
         return redirect(reverse('fitbit-error'))
 
@@ -301,7 +317,25 @@ def get_steps(request):
     URL name:
         `fitbit-steps`
     """
+    # save step data
+    user = str(request.user)
+    directory = "./data/"+user
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
+    base_date = request.GET.get('base_date', None)
+    print "base_date",base_date
+    period = request.GET.get('period', None)
+    print "period",period
+    end_date = request.GET.get('end_date', None)
+    print "end_date",end_date
+
+    health_step = get_data(request, 'activities', 'steps')
+    print health_step
+    name = directory+"/"+user+"_"+str(base_date)+"_"+str(end_date)+".json"
+    f = open(name, 'w')
+    f.write(str(health_step))
+    f.close()
     return get_data(request, 'activities', 'steps')
 
 
@@ -370,9 +404,11 @@ def get_data(request, category, resource):
 
     # Manually check that user is logged in and integrated with Fitbit.
     user = request.user
+    print "user : ",user
     try:
         resource_type = TimeSeriesDataType.objects.get(
             category=getattr(TimeSeriesDataType, category), resource=resource)
+        print "resource_type : ",resource_type
     except:
         return make_response(104)
 
@@ -383,8 +419,11 @@ def get_data(request, category, resource):
         return make_response(102)
 
     base_date = request.GET.get('base_date', None)
+    print "base_date",base_date
     period = request.GET.get('period', None)
+    print "period",period
     end_date = request.GET.get('end_date', None)
+    print "end_date",end_date
     if period and not end_date:
         form = forms.PeriodForm({'base_date': base_date, 'period': period})
     elif end_date and not period:

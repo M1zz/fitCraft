@@ -1,7 +1,22 @@
 from django import forms
- 
-class RegistrationForm(forms.Form):
-    username = forms.CharField(label='사용자 이름', max_length=30)
-    email = forms.EmailField(label='이메일')
-    password1 = forms.CharField(label='비밀번호', widget=forms.PasswordInput())
-    password2 = forms.CharField(label='비밀번호 확인', widget=forms.PasswordInput())
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+
+class MyRegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+    
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+                #,'device','access_token','refresh_token','fit_point')
+
+    def save(self, commit=True):
+        user = super(MyRegistrationForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+        # user.set_password(self.cleaned_data['password1'])
+        
+        if commit:
+            user.save()
+            
+        return user
