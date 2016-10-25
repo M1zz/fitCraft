@@ -1,0 +1,13 @@
+{% extends "admin_base.html"%}
+
+{% block content %}
+    <br>
+    <h2>Hi {{full_name}} You are now logged in!</h2>
+    <a href = "/home" class="btn btn-primary btn-large">
+        Home
+    </a>
+    <a href = "/logout" class="btn btn-primary btn-large">
+        Logout
+    </a>
+{% endblock %}
+

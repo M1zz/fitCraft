@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'fitapp',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -101,3 +102,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# fitbit setting
+FITAPP_CONSUMER_KEY = '227WVV'
+FITAPP_CONSUMER_SECRET = '3a2403a52559951495dc0d8ebe5d6bd3'

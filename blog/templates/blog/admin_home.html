@@ -1,0 +1,38 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 align = "center">Welcome to FitCraft!</h1>
+
+    <!--if user is not authenticated-->
+    {% if not user.is_authenticated %}
+    <a href = "/login" class="btn btn-primary btn-large">
+        Login
+    </a>&nbsp;
+    <a href = "/register" class="btn btn-primary btn-large">
+        Register
+    </a>&nbsp;
+    <h1>Login your accounts</h1>
+    <p>please</p>
+    {% else %}
+    <!--if user is not authenticated-->
+    {{ user.username }} hi! ^.^
+    <a href = "logout" class="btn btn-primary btn-large">
+        Logout
+    </a>&nbsp;<br>
+    {% endif %}
+
+    <b style='color:blue; font-size:13pt;'>Notice(last updated 10/24)</b><br>
+    <div style='font-size:13pt;width:600px;text-align:left;'>
+    	<li> It is free service    
+    </div>
+
+    <p>
+<!--
+        <a class="btn btn-primary btn-large">
+            Learn more
+        </a>
+-->
+    </p>
+</div>
+{% endblock %}

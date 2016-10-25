@@ -1,0 +1,21 @@
+{% extends "admin_base.html"%}
+
+{% block content %}
+    {% if form.errors %}
+        <p class="error">Sorry That's not a valid username or password</p>
+    {% endif %}
+    <br>
+    <h2>Login</h2>
+    <form action = "auth" method = "post" class="col-xs-3">{% csrf_token%}
+        <label for = "username" >UserName : </label>
+        <input type = "text" name="username" value ="" id = "username" class="form-control"></label>
+        <label for = "password" >PassWord : </label>
+        <input type = "password" name="password" value="" id="password" class="form-control"></label>
+        
+        <input type = "submit" value = "login" class="btn btn-primary btn-large"/>
+        <a href = "/home" class="btn btn-primary btn-large">
+        Cancel
+        </a>
+    </form>
+{% endblock %}
+
