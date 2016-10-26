@@ -103,13 +103,15 @@ def complete(request):
         return redirect(reverse('fitbit-error'))
 
     if UserFitbit.objects.filter(fitbit_user=fitbit_user).exists():
-        return redirect(reverse('fitbit-error'))
+        return redirect(reverse('fitbit-exist'))
 
     fbuser, _ = UserFitbit.objects.get_or_create(user=request.user)
     fbuser.access_token = access_token
     fbuser.fitbit_user = fitbit_user
     fbuser.refresh_token = token['refresh_token']
     fbuser.save()
+    
+    print "check!"
 
     # Add the Fitbit user info to the session
     request.session['fitbit_profile'] = fb.user_profile_get()
@@ -146,6 +148,9 @@ def create_fitbit_session(sender, request, user, **kwargs):
             except:
                 pass
 
+@login_required
+def exist(request):
+    return render(request, 'fitapp/exist.html', {}) 
 
 @login_required
 def error(request):
@@ -319,7 +324,7 @@ def get_steps(request):
     """
     # save step data
     user = str(request.user)
-    directory = "./data/"+user
+    directory = "./fitapp/static/data/"+user
     if not os.path.exists(directory):
         os.makedirs(directory)
 
@@ -464,3 +469,9 @@ def get_data(request, category, resource):
         raise
 
     return make_response(100, data)
+
+# visualization
+def graph_sleep(request):
+    return render(request, 'fitapp/graph_sleep.html', {})
+
+

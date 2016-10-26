@@ -7,5 +7,5 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('blog.urls')),
-    url(r'^fitbit/', include('fitapp.urls')),
+    url(r'^fitapp/', include('fitapp.urls')),
 ]

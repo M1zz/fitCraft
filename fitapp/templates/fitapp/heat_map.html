@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head><script>(function(){(function(){function e(a){this.t={};this.tick=function(a,c,b){this.t[a]=[void 0!=b?b:(new Date).getTime(),c];if(void 0==b)try{window.console.timeStamp("CSI/"+a)}catch(h){}};this.tick("start",null,a)}var a;window.performance&&(a=window.performance.timing);var f=a?new e(a.responseStart):new e;window.mobilespeed_jstiming={Timer:e,load:f};if(a){var c=a.navigationStart,d=a.responseStart;0<c&&d>=c&&(window.mobilespeed_jstiming.srt=d-c)}if(a){var b=window.mobilespeed_jstiming.load;0<c&&d>=c&&(b.tick("_wtsrt",
+void 0,c),b.tick("wtsrt_","_wtsrt",d),b.tick("tbsd_","wtsrt_"))}try{a=null,window.chrome&&window.chrome.csi&&(a=Math.floor(window.chrome.csi().pageT),b&&0<c&&(b.tick("_tbnd",void 0,window.chrome.csi().startE),b.tick("tbnd_","_tbnd",c))),null==a&&window.gtbExternal&&(a=window.gtbExternal.pageT()),null==a&&window.external&&(a=window.external.pageT,b&&0<c&&(b.tick("_tbnd",void 0,window.external.startE),b.tick("tbnd_","_tbnd",c))),a&&(window.mobilespeed_jstiming.pt=a)}catch(g){}})();})();
+</script>
+    <title>Days Hours Heatmap</title>    
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
+  </head>
+  <body>
+    <div class="days-hours-heatmap">
+      <!-- calibration and render type controller -->
+      <div class="calibration" role="calibration">
+        <div class="group" role="example">
+          <svg width="120" height="17">
+          </svg>
+          <div role="description" class="description">
+            <label>Less</label>
+            <label>More</label>
+          </div>        
+        </div>
+        <div role="toggleDisplay" class="display-control">
+          <div>
+            <input type="radio" name="displayType" checked/>
+            <label>count</label>
+          </div>
+          <div>
+            <input type="radio" name="displayType"/>
+            <label>daily</label> 
+          </div>
+        </div>
+      </div>
+      <!-- heatmap -->
+      <svg role="heatmap" class="heatmap"></svg>
+    </div>
+    
+    <!-- <script type="text/javascript" src="{% static "js/app.js" %}"></script>-->
+<script>
+//(function(){var itemSize=18,cellSize=itemSize-1,width=800,height=800,margin={top:20,right:20,bottom:20,left:25};var hourFormat=d3.time.format('%H'),dayFormat=d3.time.format('%j'),timeFormat=d3.time.format('%Y-%m-%dT%X'),monthDayFormat=d3.time.format('%m.%d');var dateExtent=null,data=null,dayOffset=0,colorCalibration=['#f6faaa','#FEE08B','#FDAE61','#F46D43','#D53E4F','#9E0142'],dailyValueExtent={};var axisWidth=0,axisHeight=itemSize*24,xAxisScale=d3.time.scale(),xAxis=d3.svg.axis().orient('top').ticks(d3.time.days,3).tickFormat(monthDayFormat),yAxisScale=d3.scale.linear().range([0,axisHeight]).domain([0,24]),yAxis=d3.svg.axis().orient('left').ticks(5).tickFormat(d3.format('02d')).scale(yAxisScale);initCalibration();var svg=d3.select('[role="heatmap"]');var heatmap=svg.attr('width',width).attr('height',height).append('g').attr('width',width-margin.left-margin.right).attr('height',height-margin.top-margin.bottom).attr('transform','translate('+margin.left+','+margin.top+')');var rect=null;d3.json('/static/data/pm25.json',function(err,data){data=data.data;data.forEach(function(valueObj){valueObj['date']=timeFormat.parse(valueObj['timestamp']);var day=valueObj['day']=monthDayFormat(valueObj['date']);var dayData=dailyValueExtent[day]=(dailyValueExtent[day]||[1000,-1]);var pmValue=valueObj['value']['PM2.5'];dayData[0]=d3.min([dayData[0],pmValue]);dayData[1]=d3.max([dayData[1],pmValue]);});dateExtent=d3.extent(data,function(d){return d.date;});axisWidth=itemSize*(dayFormat(dateExtent[1])-dayFormat(dateExtent[0])+1);xAxis.scale(xAxisScale.range([0,axisWidth]).domain([dateExtent[0],dateExtent[1]]));svg.append('g').attr('transform','translate('+margin.left+','+margin.top+')').attr('class','x axis').call(xAxis).append('text').text('date').attr('transform','translate('+axisWidth+',-10)');svg.append('g').attr('transform','translate('+margin.left+','+margin.top+')').attr('class','y axis').call(yAxis).append('text').text('time').attr('transform','translate(-10,'+axisHeight+') rotate(-90)');dayOffset=dayFormat(dateExtent[0]);rect=heatmap.selectAll('rect').data(data).enter().append('rect').attr('width',cellSize).attr('height',cellSize).attr('x',function(d){return itemSize*(dayFormat(d.date)-dayOffset);}).attr('y',function(d){return hourFormat(d.date)*itemSize;}).attr('fill','#ffffff');rect.filter(function(d){return d.value['PM2.5']>0;}).append('title').text(function(d){return monthDayFormat(d.date)+' '+d.value['PM2.5'];});renderColor();});function initCalibration(){d3.select('[role="calibration"] [role="example"]').select('svg').selectAll('rect').data(colorCalibration).enter().append('rect').attr('width',cellSize).attr('height',cellSize).attr('x',function(d,i){return i*itemSize;}).attr('fill',function(d){return d;});d3.selectAll('[role="calibration"] [name="displayType"]').on('click',function(){renderColor();});}function renderColor(){var renderByCount=document.getElementsByName('displayType')[0].checked;rect.filter(function(d){return(d.value['PM2.5']>=0);}).transition().delay(function(d){return(dayFormat(d.date)-dayOffset)*15;}).duration(500).attrTween('fill',function(d,i,a){var colorIndex=d3.scale.quantize().range([0,1,2,3,4,5]).domain((renderByCount?[0,500]:dailyValueExtent[d.day]));return d3.interpolate(a,colorCalibration[colorIndex(d.value['PM2.5'])]);});}d3.select(self.frameElement).style("height","600px");})();
+
+(function() {
+    var itemSize = 18,
+        cellSize = itemSize - 1,
+        width = 800,
+        height = 800,
+        margin = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 25
+        };
+    var hourFormat = d3.time.format('%H'),
+        dayFormat = d3.time.format('%j'),
+        timeFormat = d3.time.format('%Y-%m-%dT%X'),
+        monthDayFormat = d3.time.format('%m.%d');
+    var dateExtent = null,
+        data = null,
+        dayOffset = 0,
+        colorCalibration = ['#f6faaa', '#FEE08B', '#FDAE61', '#F46D43', '#D53E4F', '#9E0142'],
+        dailyValueExtent = {};
+    var axisWidth = 0,
+        axisHeight = itemSize * 24,
+        xAxisScale = d3.time.scale(),
+        xAxis = d3.svg.axis().orient('top').ticks(d3.time.days, 3).tickFormat(monthDayFormat),
+        yAxisScale = d3.scale.linear().range([0, axisHeight]).domain([0, 24]),
+        yAxis = d3.svg.axis().orient('left').ticks(5).tickFormat(d3.format('02d')).scale(yAxisScale);
+    initCalibration();
+    var svg = d3.select('[role="heatmap"]');
+    var heatmap = svg.attr('width', width).attr('height', height).append('g').attr('width', width - margin.left - margin.right).attr('height', height - margin.top - margin.bottom).attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    var rect = null;
+    d3.json('/static/data/pm25.json', function(err, data) {
+        data = data.data;
+        data.forEach(function(valueObj) {
+            valueObj['date'] = timeFormat.parse(valueObj['timestamp']);
+            var day = valueObj['day'] = monthDayFormat(valueObj['date']);
+            var dayData = dailyValueExtent[day] = (dailyValueExtent[day] || [1000, -1]);
+            var pmValue = valueObj['value']['PM2.5'];
+            dayData[0] = d3.min([dayData[0], pmValue]);
+            dayData[1] = d3.max([dayData[1], pmValue]);
+        });
+        dateExtent = d3.extent(data, function(d) {
+            return d.date;
+        });
+        axisWidth = itemSize * (dayFormat(dateExtent[1]) - dayFormat(dateExtent[0]) + 1);
+        xAxis.scale(xAxisScale.range([0, axisWidth]).domain([dateExtent[0], dateExtent[1]]));
+        svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').attr('class', 'x axis').call(xAxis).append('text').text('date').attr('transform', 'translate(' + axisWidth + ',-10)');
+        svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').attr('class', 'y axis').call(yAxis).append('text').text('time').attr('transform', 'translate(-10,' + axisHeight + ') rotate(-90)');
+        dayOffset = dayFormat(dateExtent[0]);
+        rect = heatmap.selectAll('rect').data(data).enter().append('rect').attr('width', cellSize).attr('height', cellSize).attr('x', function(d) {
+            return itemSize * (dayFormat(d.date) - dayOffset);
+        }).attr('y', function(d) {
+            return hourFormat(d.date) * itemSize;
+        }).attr('fill', '#ffffff');
+        rect.filter(function(d) {
+            return d.value['PM2.5'] > 0;
+        }).append('title').text(function(d) {
+            return monthDayFormat(d.date) + ' ' + d.value['PM2.5'];
+        });
+        renderColor();
+    });
+
+    function initCalibration() {
+        d3.select('[role="calibration"] [role="example"]').select('svg').selectAll('rect').data(colorCalibration).enter().append('rect').attr('width', cellSize).attr('height', cellSize).attr('x', function(d, i) {
+            return i * itemSize;
+        }).attr('fill', function(d) {
+            return d;
+        });
+        d3.selectAll('[role="calibration"] [name="displayType"]').on('click', function() {
+            renderColor();
+        });
+    }
+
+    function renderColor() {
+        var renderByCount = document.getElementsByName('displayType')[0].checked;
+        rect.filter(function(d) {
+            return (d.value['PM2.5'] >= 0);
+        }).transition().delay(function(d) {
+            return (dayFormat(d.date) - dayOffset) * 15;
+        }).duration(500).attrTween('fill', function(d, i, a) {
+            var colorIndex = d3.scale.quantize().range([0, 1, 2, 3, 4, 5]).domain((renderByCount ? [0, 500] : dailyValueExtent[d.day]));
+            return d3.interpolate(a, colorCalibration[colorIndex(d.value['PM2.5'])]);
+        });
+    }
+    d3.select(self.frameElement).style("height", "600px");
+})();
+</script>
+  <script>(function(){var d="webkitvisibilitychange",g="_ns";if(window.mobilespeed_jstiming){window.mobilespeed_jstiming.a={};window.mobilespeed_jstiming.b=1;var n=function(b,a,e){var c=b.t[a],f=b.t.start;if(c&&(f||e))return c=b.t[a][0],void 0!=e?f=e:f=f[0],Math.round(c-f)},p=function(b,a,e){var c="";window.mobilespeed_jstiming.srt&&(c+="&srt="+window.mobilespeed_jstiming.srt,delete window.mobilespeed_jstiming.srt);window.mobilespeed_jstiming.pt&&(c+="&tbsrt="+window.mobilespeed_jstiming.pt,delete window.mobilespeed_jstiming.pt);try{window.external&&window.external.tran?
+c+="&tran="+window.external.tran:window.gtbExternal&&window.gtbExternal.tran?c+="&tran="+window.gtbExternal.tran():window.chrome&&window.chrome.csi&&(c+="&tran="+window.chrome.csi().tran)}catch(v){}var f=window.chrome;if(f&&(f=f.loadTimes)){f().wasFetchedViaSpdy&&(c+="&p=s");if(f().wasNpnNegotiated){var c=c+"&npn=1",h=f().npnNegotiatedProtocol;h&&(c+="&npnv="+(encodeURIComponent||escape)(h))}f().wasAlternateProtocolAvailable&&(c+="&apa=1")}var l=b.t,t=l.start,f=[],h=[],k;for(k in l)if("start"!=k&&
+0!=k.indexOf("_")){var m=l[k][1];m?l[m]&&h.push(k+"."+n(b,k,l[m][0])):t&&f.push(k+"."+n(b,k))}delete l.start;if(a)for(var q in a)c+="&"+q+"="+a[q];(a=e)||(a="https:"==document.location.protocol?"https://csi.gstatic.com/csi":"http://csi.gstatic.com/csi");return[a,"?v=3","&s="+(window.mobilespeed_jstiming.sn||"mobilespeed")+"&action=",b.name,h.length?"&it="+h.join(","):"",c,"&rt=",f.join(",")].join("")},r=function(b,a,e){b=p(b,a,e);if(!b)return"";a=new Image;var c=window.mobilespeed_jstiming.b++;window.mobilespeed_jstiming.a[c]=
+a;a.onload=a.onerror=function(){window.mobilespeed_jstiming&&delete window.mobilespeed_jstiming.a[c]};a.src=b;a=null;return b};window.mobilespeed_jstiming.report=function(b,a,e){if("prerender"==document.webkitVisibilityState){var c=!1,f=function(){if(!c){a?a.prerender="1":a={prerender:"1"};var h;"prerender"==document.webkitVisibilityState?h=!1:(r(b,a,e),h=!0);h&&(c=!0,document.removeEventListener(d,f,!1))}};document.addEventListener(d,f,!1);return""}return r(b,a,e)};var u=function(b,a,e,c){return 0<
+e?(c?b.tick(a,c,e):b.tick(a,"",e),!0):!1};window.mobilespeed_jstiming.getNavTiming=function(b){if(window.performance&&window.performance.timing){var a=window.performance.timing;u(b,"_dns",a.domainLookupStart)&&u(b,"dns_",a.domainLookupEnd,"_dns");u(b,"_con",a.connectStart)&&u(b,"con_",a.connectEnd,"_con");u(b,"_req",a.requestStart)&&u(b,"req_",a.responseStart,"_req");u(b,"_rcv",a.responseStart)&&u(b,"rcv_",a.responseEnd,"_rcv");if(u(b,g,a.navigationStart)){u(b,"ntsrt_",a.responseStart,g);u(b,"nsfs_",
+a.fetchStart,g);u(b,"nsrs_",a.redirectStart,g);u(b,"nsre_",a.redirectEnd,g);u(b,"nsds_",a.domainLookupStart,g);u(b,"nscs_",a.connectStart,g);u(b,"nsrqs_",a.requestStart,g);var e=!1;try{e=window.external&&window.external.startE}catch(c){}!e&&window.chrome&&window.chrome.csi&&(e=Math.floor(window.chrome.csi().startE));e&&(u(b,"_se",e),u(b,"sens_",a.navigationStart,"_se"));u(b,"ntplt0_",a.loadEventStart,g);u(b,"ntplt1_",a.loadEventEnd,g);window.chrome&&window.chrome.loadTimes&&(a=window.chrome.loadTimes().firstPaintTime)&&
+u(b,"nsfp_",1E3*a,g)}}}};})();
+</script><script>(function(){var a=window.mobilespeed_jstiming,b=a.load;window.top==window&&window.addEventListener("load",function(){b.name="load";b.tick("ol");a.getNavTiming(b);setTimeout(function(){a.report(b,{e:"default_control2"})},300)},!1);})();
+</script></body>
+</html>
