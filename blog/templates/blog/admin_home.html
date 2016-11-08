@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="jumbotron">
-    <h1 align = "center">Welcome to FitCraft!</h1>
+    <h1 align = "center" style="font-family:Comic Sans MS, cursive, sans-serif">Welcome to FitYou!</h1>
 
     <!--if user is not authenticated-->
     {% if not user.is_authenticated %}
@@ -13,32 +13,48 @@
         <a href = "/register" class="btn btn-primary btn-large">
             Register
         </a>&nbsp;
-
     </div>
-    <div align="center">
-        <p>Login your accounts</p>
-        <p>please</p>
+    <div align = "center">
+        <a href = "http://leo-s.cs-cnu.org/profile" class="btn btn-primary btn-large">
+            Who am I?
+        </a>&nbsp;
+        <a href = "/listSpecificPageWork?current_page=1" class="btn btn-primary btn-large">
+            Board
+        </a>&nbsp;
     </div>
+<!--
+        <a href = "/fit_board" class="btn btn-primary btn-large">
+            Board
+        </a>&nbsp;
+-->
     {% else %}
-    <!--if user is not authenticated-->
-    <div align="right">
+    <!--if user is authenticated-->
+    <div align = "right">
         {{ user.username }} hi! ^.^
         <a href = "logout" class="btn btn-primary btn-large">
             Logout
+        </a>&nbsp;<br><br>
+    </div>
+    <div align = "center">
+        <a href = "/fitcraft" class="btn btn-primary btn-large">
+            FitCraft
         </a>&nbsp;
-        <a href = "/fitapp/login" class="btn btn-primary btn-large">
-            Fitbit Token
+        <a href = "/fitapp/home" class="btn btn-primary btn-large">
+            Health Data
         </a>&nbsp;
-        <a href = "fitapp/graph_sleep" class="btn btn-primary btn-large">
-            Sleep_graph
+        <a href = "http://leo-s.cs-cnu.org/profile" class="btn btn-primary btn-large">
+            Who am I?
         </a>&nbsp;
-
+        <a href = "/listSpecificPageWork?current_page=1" class="btn btn-primary btn-large">
+            Board
+        </a>&nbsp;
     </div>
     <br>
     {% endif %}
     <div align = "center">
-        <b style='color:blue; font-size:13pt;'>Notice(last updated 10/25)</b><br>
+        <b style='color:blue; font-size:13pt;'>Notice(last updated 10/26)</b><br>
         <div style='font-size:13pt;width:600px;text-align:left;'>
+            <li> Free board (10/26)
             <li> Fitbit Sync (10/25)
             <li> Login / Logout (10/24)
             <li> It is free service (10/22)   

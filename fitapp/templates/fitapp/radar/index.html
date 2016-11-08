@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+{% load staticfiles %}
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="{% static "css/radar-chart.css" %}">
+<head>
+  <style>
+    body {
+      padding: 20px;
+    }
+    .radar-chart .area {
+      fill-opacity: 0.7;
+    }
+    .radar-chart.focus .area {
+      fill-opacity: 0.3;
+    }
+    .radar-chart.focus .area.focused {
+      fill-opacity: 0.9;
+    }
+    .area.germany, .germany .circle {
+      fill: #FFD700;
+      stroke: none;
+    }
+    .area.argentina, .argentina .circle {
+      fill: #ADD8E6;
+      stroke: none;
+    }
+  </style>
+
+  <script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+  <script type="text/javascript" src="{% static "js/radar-chart.js" %}"></script>
+
+
+  </head>
+  <body onload="showRadar()">
+    <h1>Your status</h1>
+
+    <textarea id="data" cols="60" rows="15" style="display:none;">
+name,step,sleep,calorie,regualar,heart
+Hodor,60,46,80,50,90
+perfect,100,100,100,100,100
+average,50,50,50,50,50
+</textarea>
+<p hidden>
+Width: <input type="number" name="w" id="w" class="form-control" value="400" min="200" max="2000" step="" required="required" title="">
+Height: <input type="number" name="h" id="h" class="form-control" value="400" min="200" max="2000" step="" required="required" title="">
+</p>
+<p hidden>
+<!--<button onclick='showRadar()' class="btn btn-default" style="width:200px;height:50px;">Draw!</button>-->
+</p>
+<script type="text/javascript">
+
+  function showRadar(){
+    var data = [];
+    var chart = RadarChart.chart();
+  
+  //var c = document.getElementById("data").value,
+  d3.csv("/static/data/test.csv", function(data) {
+    alert();
+  });
+  var c = document.getElementById("data").value,
+      w = document.getElementById("w").value,
+      h = document.getElementById("h").value,
+  csv = c.split("\n").map(function(i){return i.split(",")})
+  headers = []
+  csv.forEach(function(item, i){
+    if(i==0){
+      headers = item;
+    }else{
+      newSeries = {};
+      item.forEach( function(v, j){
+        if(j==0){
+          newSeries.className = v;
+          newSeries.axes = [];
+        }else{
+          newSeries.axes.push({"axis":[headers[j]], "value": parseFloat(v)});
+        }
+      });
+      data.push(newSeries);
+    }
+  })
+RadarChart.defaultConfig.radius = 3;
+RadarChart.defaultConfig.w = w;
+RadarChart.defaultConfig.h = h;
+RadarChart.draw("#chart-container", data);
+function animate(elem,time) {
+    if( !elem) return;
+    var to = elem.offsetTop;
+    var from = window.scrollY;
+    var start = new Date().getTime(),
+        timer = setInterval(function() {
+            var step = Math.min(1,(new Date().getTime()-start)/time);
+            window.scrollTo(0,(from+step*(to-from))+1);
+            if( step == 1){ clearInterval(timer);};
+        },25);
+        window.scrollTo(0,(from+1));
+    }
+
+var divVal = document.getElementById('chart-container');
+animate(divVal,600);
+}
+</script>
+
+
+<div id="chart-container"></div>
+<script type="text/javascript">
+    //RadarChart.defaultConfig.levelTick = true;
+  </script>
+
+</body>
+</html>

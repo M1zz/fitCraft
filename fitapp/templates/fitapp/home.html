@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+        <title>Health data</title>
+    </head>
+    <body>
+    {% if user.is_authenticated %}
+    <div align = "right">
+        {{ user.username }} hi! ^.^
+    </div>
+        <h1>Health data</h1>
+        <div>  
+        <a href = "/fitapp/login" class="btn btn-primary btn-large">
+            Fitbit Token
+        </a>&nbsp;
+        <a href = "http://fityou.xyz/fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30" class="btn btn-primary btn-large">
+            Get Step[Sep]
+        </a>&nbsp;
+        <a href = "http://fityou.xyz/fitapp/get_today_steps/?base_date=2016-11-08&end_date=2016-11-08" class="btn btn-primary btn-large">
+            Get Today Step
+        </a>&nbsp;
+        <a href = "/fitapp/graph_sleep" class="btn btn-primary btn-large">
+            Sleep_graph
+        </a>&nbsp;
+        <a href = "/fitapp/graph_step" class="btn btn-primary btn-large">
+            Step_graph
+        </a>&nbsp;
+        <a href = "/fitapp/status" class="btn btn-primary btn-large">
+            Status
+        </a>&nbsp;
+        <a href = "/home" class="btn btn-primary btn-large">
+            Home
+        </a>
+        </div>
+        <div>
+        <br>
+        <a href = "/google/" class="btn btn-primary btn-large">
+            Google Token
+        </a>&nbsp;
+        </div>
+    {% else %}
+    <div align="right">
+        <a href = "/login" class="btn btn-primary btn-large">
+            Login
+        </a>&nbsp;
+        <a href = "/register" class="btn btn-primary btn-large">
+            Register
+        </a>&nbsp;
+    </div>
+    {% endif %}
+
+    </body>
+</html>

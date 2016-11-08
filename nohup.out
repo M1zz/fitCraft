@@ -1,0 +1,369 @@
+[27/Oct/2016 15:00:19]"GET / HTTP/1.1" 200 5850
+[27/Oct/2016 15:28:26]"GET / HTTP/1.1" 200 5850
+[27/Oct/2016 15:28:26]"GET /forget/ HTTP/1.1" 404 5024
+[27/Oct/2016 15:36:59]"GET //admin/config.php HTTP/1.1" 404 5050
+[27/Oct/2016 15:59:20]"GET / HTTP/1.1" 200 4091
+[27/Oct/2016 15:59:20]"GET /favicon.ico HTTP/1.1" 404 5031
+[27/Oct/2016 15:59:22]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 15:59:25]"GET /fitapp/graph_step/ HTTP/1.1" 200 3534
+[27/Oct/2016 15:59:26]"GET /static/data/test03/2016-09.tsv HTTP/1.1" 200 282
+[27/Oct/2016 15:59:35]"GET / HTTP/1.1" 200 5850
+[27/Oct/2016 15:59:36]"GET /favicon.ico HTTP/1.1" 404 5031
+[27/Oct/2016 15:59:37]"GET /login HTTP/1.1" 200 5233
+[27/Oct/2016 15:59:42]"POST /auth HTTP/1.1" 302 0
+/usr/local/lib/python2.7/dist-packages/django/template/defaulttags.py:66: UserWarning: A {% csrf_token %} was used in a template, but the context did not provide the value.  This is usually caused by not using RequestContext.
+  "A {% csrf_token %} was used in a template, but the context "
+
+[27/Oct/2016 15:59:42]"GET /blog/loggedin HTTP/1.1" 200 4677
+[27/Oct/2016 15:59:43]code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x00\x8c\x01\x00\x00\x88\x03\x03D')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+[27/Oct/2016 15:59:44]"GET /home HTTP/1.1" 200 4103
+[27/Oct/2016 15:59:46]"GET /fitapp/home HTTP/1.1" 301 0
+[27/Oct/2016 15:59:46]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 15:59:50]"GET /fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30 HTTP/1.1" 200 1409
+[27/Oct/2016 15:59:52]"GET /fitapp/login HTTP/1.1" 301 0
+[27/Oct/2016 15:59:52]"GET /fitapp/login/ HTTP/1.1" 302 0
+[27/Oct/2016 15:59:55]"GET /fitapp/complete/?code=25e012e9e69eb44e43079e66cbbbfc07724d61ec&state=211v8k9lKBXYG4CDanRnMLFQS2LZbq HTTP/1.1" 302 0
+[27/Oct/2016 15:59:55]"GET /fitapp/exist/ HTTP/1.1" 200 654
+[27/Oct/2016 16:00:00]"GET /fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30 HTTP/1.1" 200 1409
+[27/Oct/2016 16:00:02]"GET /fitapp/graph_sleep HTTP/1.1" 301 0
+[27/Oct/2016 16:00:02]"GET /fitapp/graph_sleep/ HTTP/1.1" 200 9968
+[27/Oct/2016 16:00:04]"GET /static/data/data.tsv HTTP/1.1" 200 1201
+[27/Oct/2016 16:00:05]"GET /fitapp/graph_step HTTP/1.1" 301 0
+[27/Oct/2016 16:00:06]"GET /fitapp/graph_step/ HTTP/1.1" 200 3542
+[27/Oct/2016 16:00:07]"GET /static/data/dbgustlr92/2016-09.tsv HTTP/1.1" 200 254
+[27/Oct/2016 16:07:31]"GET /login HTTP/1.1" 200 5233
+[27/Oct/2016 16:07:31]"GET / HTTP/1.1" 200 4091
+[27/Oct/2016 16:07:32]"GET /login HTTP/1.1" 200 5233
+[27/Oct/2016 16:07:32]"GET / HTTP/1.1" 200 4091
+[27/Oct/2016 16:15:11]"GET / HTTP/1.1" 200 5850
+[27/Oct/2016 16:22:26]"GET / HTTP/1.1" 200 4091
+[27/Oct/2016 16:22:34]"GET / HTTP/1.1" 200 4091
+[27/Oct/2016 16:34:21]"GET / HTTP/1.1" 200 4091
+[27/Oct/2016 16:34:24]"GET /fitcraft HTTP/1.1" 200 3223
+[27/Oct/2016 16:35:28]"GET / HTTP/1.1" 200 5850
+[27/Oct/2016 16:35:29]"GET /favicon.ico HTTP/1.1" 404 5031
+[27/Oct/2016 16:35:32]"GET /login HTTP/1.1" 200 5233
+[27/Oct/2016 16:35:37]"POST /auth HTTP/1.1" 302 0
+[27/Oct/2016 16:35:37]"GET /blog/invalid HTTP/1.1" 200 4591
+[27/Oct/2016 16:35:40]"GET /login HTTP/1.1" 200 5233
+[27/Oct/2016 16:35:47]"GET /home HTTP/1.1" 200 5850
+[27/Oct/2016 16:35:48]"GET /register HTTP/1.1" 200 5541
+[27/Oct/2016 16:35:59]"POST /register HTTP/1.1" 200 5541
+[27/Oct/2016 16:36:03]"GET / HTTP/1.1" 200 4091
+[27/Oct/2016 16:36:15]"POST /register HTTP/1.1" 302 0
+[27/Oct/2016 16:36:16]"GET /register_success HTTP/1.1" 200 4584
+[27/Oct/2016 16:36:18]"GET /login HTTP/1.1" 200 5233
+[27/Oct/2016 16:36:25]"POST /auth HTTP/1.1" 302 0
+[27/Oct/2016 16:36:26]"GET /blog/loggedin HTTP/1.1" 200 4676
+[27/Oct/2016 16:36:27]"GET /home HTTP/1.1" 200 4100
+[27/Oct/2016 16:36:37]"GET /fitcraft HTTP/1.1" 200 3229
+[27/Oct/2016 16:36:39]"GET / HTTP/1.1" 200 5850
+[27/Oct/2016 16:36:40]"GET /fitcraft/note HTTP/1.1" 200 3017
+[27/Oct/2016 16:36:43]"GET /fitcraft/howToPlay HTTP/1.1" 200 2939
+[27/Oct/2016 16:36:44]"GET /home HTTP/1.1" 200 4100
+[27/Oct/2016 16:36:46]"GET /fitcraft HTTP/1.1" 200 3229
+[27/Oct/2016 16:36:50]"GET /home HTTP/1.1" 200 4100
+[27/Oct/2016 16:37:10]"GET /fitapp/home HTTP/1.1" 301 0
+[27/Oct/2016 16:37:10]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 16:37:12]"GET /fitapp/login HTTP/1.1" 301 0
+[27/Oct/2016 16:37:12]"GET /fitapp/login/ HTTP/1.1" 302 0
+[27/Oct/2016 16:37:19]"GET /fitapp/complete/?code=2d24f23b50151315442693f4b89edbf990405dc4&state=mfhOiiiT7aekH7WNvDDpyZtvmQGoPd HTTP/1.1" 302 0
+[27/Oct/2016 16:37:19]"GET / HTTP/1.1" 200 4100
+[27/Oct/2016 16:37:21]"GET /fitapp/home/ HTTP/1.1" 200 991
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 27, 2016 - 14:08:38
+Django version 1.8, using settings 'mysite.settings'
+Starting development server at http://0:80/
+Quit the server with CONTROL-C.
+dbgustlr92 macgongmon92
+dbgustlr92
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+user :  dbgustlr92
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+./fitapp/static/data/dbgustlr92 ./fitapp/static/data/dbgustlr92/dbgustlr92_2016-09-01_2016-09-30.json
+user :  dbgustlr92
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+next_url :  None
+callback_uri :  http://fityou.xyz/fitapp/complete/
+fb :  <fitbit.api.Fitbit object at 0x7f7cf374cb10>
+token_url :  https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=227WVV&redirect_uri=http%3A%2F%2Ffityou.xyz%2Ffitapp%2Fcomplete%2F&scope=activity+nutrition+heartrate+location+nutrition+profile+settings+sleep+social+weight&state=211v8k9lKBXYG4CDanRnMLFQS2LZbq
+code :  25e012e9e69eb44e43079e66cbbbfc07724d61ec
+callback_uri :  http://fityou.xyz/fitapp/complete/
+{u'token_type': u'Bearer', u'user_id': u'3PY3RR', u'refresh_token': u'53735776e545b67ca2b1d8c7abd428eb0091471e23d5e8c8bce25ef103838be2', u'access_token': u'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzUFkzUlIiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjEyOTQyLCJpYXQiOjE0Nzc1ODQxNDJ9.b5b5zx_Hrz93n1xMH3t7s1FWtSbGU73V551DRsZ3Q-k', u'scope': [u'weight', u'social', u'sleep', u'activity', u'heartrate', u'profile', u'location', u'nutrition', u'settings'], u'expires_in': 28800, u'expires_at': 1477612795.506413}
+access_token :  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzUFkzUlIiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjEyOTQyLCJpYXQiOjE0Nzc1ODQxNDJ9.b5b5zx_Hrz93n1xMH3t7s1FWtSbGU73V551DRsZ3Q-k
+fitbit_user :  3PY3RR
+2
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+user :  dbgustlr92
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+./fitapp/static/data/dbgustlr92 ./fitapp/static/data/dbgustlr92/dbgustlr92_2016-09-01_2016-09-30.json
+user :  dbgustlr92
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+grayfield qlalf486
+None
+grayfield qlalf486
+grayfield
+how to play
+next_url :  None
+callback_uri :  http://fityou.xyz/fitapp/complete/
+fb :  <fitbit.api.Fitbit object at 0x7f7cf2709250>
+token_url :  https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=227WVV&redirect_uri=http%3A%2F%2Ffityou.xyz%2Ffitapp%2Fcomplete%2F&scope=activity+nutrition+heartrate+location+nutrition+profile+settings+sleep+social+weight&state=mfhOiiiT7aekH7WNvDDpyZtvmQGoPd
+code :  2d24f23b50151315442693f4b89edbf990405dc4
+callback_uri :  http://fityou.xyz/fitapp/complete/
+{u'token_type': u'Bearer', u'user_id': u'4ZF4V8', u'refresh_token': u'a520145327f38772abfec21b2640c53b43f75a8983404ebca4256d0b856e4874', u'access_token': u'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0WkY0VjgiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjE1MTg1LCJpYXQiOjE0Nzc1ODYzODV9.Z0MjAwqLaISwdgaJBb3MU0zWBaqadLuz6h_0r3dwhXE', u'scope': [u'activity', u'profile', u'social', u'settings', u'nutrition', u'sleep', u'location', u'heartrate', u'weight'], u'expires_in': 28800, u'expires_at': 1477615038.699206}
+access_token :  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0WkY0VjgiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjE1MTg1LCJpYXQiOjE0Nzc1ODYzODV9.Z0MjAwqLaISwdgaJBb3MU0zWBaqadLuz6h_0r3dwhXE
+fitbit_user :  4ZF4V8
+check!
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+user :  grayfield
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+./fitapp/static/data/gr[27/Oct/2016 16:37:25]"GET /fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30 HTTP/1.1" 200 1322
+[27/Oct/2016 16:37:55]"GET /fitapp/get_steps/?base_date=2016-09-01&end_date=2016-10-31 HTTP/1.1" 200 2652
+[27/Oct/2016 16:38:35]"GET /fitapp/graph_sleep HTTP/1.1" 301 0
+[27/Oct/2016 16:38:36]"GET /fitapp/graph_sleep/ HTTP/1.1" 200 9968
+[27/Oct/2016 16:38:37]"GET /static/data/data.tsv HTTP/1.1" 200 1201
+[27/Oct/2016 16:38:42]"GET /fitapp/graph_step HTTP/1.1" 301 0
+[27/Oct/2016 16:38:42]"GET /fitapp/graph_step/ HTTP/1.1" 200 3540
+[27/Oct/2016 16:38:42]"GET /static/data/grayfield/2016-09.tsv HTTP/1.1" 200 167
+[27/Oct/2016 16:38:47]"GET / HTTP/1.1" 200 5850
+[27/Oct/2016 16:38:48]"GET /favicon.ico HTTP/1.1" 404 5031
+[27/Oct/2016 16:38:48]"GET /favicon.ico HTTP/1.1" 404 5031
+[27/Oct/2016 16:38:51]"GET /register HTTP/1.1" 200 5541
+[27/Oct/2016 16:39:01]"POST /register HTTP/1.1" 302 0
+[27/Oct/2016 16:39:02]"GET /register_success HTTP/1.1" 200 4584
+[27/Oct/2016 16:39:03]"GET /login HTTP/1.1" 200 5233
+[27/Oct/2016 16:39:08]"POST /auth HTTP/1.1" 302 0
+[27/Oct/2016 16:39:08]"GET /blog/loggedin HTTP/1.1" 200 4673
+[27/Oct/2016 16:39:10]"GET /home HTTP/1.1" 200 4091
+[27/Oct/2016 16:39:12]"GET /fitapp/home HTTP/1.1" 301 0
+[27/Oct/2016 16:39:12]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 16:39:15]"GET /fitapp/login HTTP/1.1" 301 0
+[27/Oct/2016 16:39:15]"GET /fitapp/login/ HTTP/1.1" 302 0
+[27/Oct/2016 16:39:17]"GET /admin HTTP/1.1" 301 0
+[27/Oct/2016 16:39:17]"GET /admin/ HTTP/1.1" 302 0
+[27/Oct/2016 16:39:17]"GET /admin/login/?next=/admin/ HTTP/1.1" 200 1915
+[27/Oct/2016 16:39:18]"GET /static/admin/css/base.css HTTP/1.1" 200 14049
+[27/Oct/2016 16:39:18]"GET /static/admin/css/login.css HTTP/1.1" 200 940
+[27/Oct/2016 16:39:18]"GET /static/admin/img/nav-bg.gif HTTP/1.1" 200 265
+[27/Oct/2016 16:39:25]"POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[27/Oct/2016 16:39:25]"GET /admin/ HTTP/1.1" 200 4733
+[27/Oct/2016 16:39:25]"GET /static/admin/css/dashboard.css HTTP/1.1" 200 434
+[27/Oct/2016 16:39:25]"GET /static/admin/img/icon_changelink.gif HTTP/1.1" 200 119
+[27/Oct/2016 16:39:25]"GET /static/admin/img/default-bg.gif HTTP/1.1" 200 836
+[27/Oct/2016 16:39:25]"GET /static/admin/img/icon_addlink.gif HTTP/1.1" 200 119
+[27/Oct/2016 16:39:26]"GET /static/admin/img/icon_deletelink.gif HTTP/1.1" 200 181
+[27/Oct/2016 16:39:28]"GET /admin/auth/user/ HTTP/1.1" 200 10798
+[27/Oct/2016 16:39:28]"GET /static/admin/js/core.js HTTP/1.1" 200 7522
+[27/Oct/2016 16:39:28]"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 4464
+[27/Oct/2016 16:39:28]"GET /static/admin/css/changelists.css HTTP/1.1" 200 5254
+[27/Oct/2016 16:39:28]"GET /static/admin/js/actions.js HTTP/1.1" 200 4910
+[27/Oct/2016 16:39:28]"GET /static/admin/js/jquery.init.js HTTP/1.1" 200 326
+[27/Oct/2016 16:39:28]"GET /static/admin/img/icon_searchbox.png HTTP/1.1" 200 368
+[27/Oct/2016 16:39:28]"GET /static/admin/img/icon-no.gif HTTP/1.1" 200 176
+[27/Oct/2016 16:39:28]"GET /static/admin/img/icon-yes.gif HTTP/1.1" 200 299
+[27/Oct/2016 16:39:28]"GET /admin/jsi18n/ HTTP/1.1" 200 2372
+[27/Oct/2016 16:39:28]"GET /static/admin/js/jquery.js HTTP/1.1" 200 284184
+[27/Oct/2016 16:39:28]"GET /static/admin/img/nav-bg-reverse.gif HTTP/1.1" 200 178
+[27/Oct/2016 16:39:28]"GET /static/admin/img/tooltag-add.png HTTP/1.1" 200 119
+[27/Oct/2016 16:39:28]"GET /static/admin/img/changelist-bg.gif HTTP/1.1" 200 50
+[27/Oct/2016 16:39:28]"GET /static/admin/img/nav-bg-selected.gif HTTP/1.1" 200 265
+[27/Oct/2016 16:39:28]"GET /static/admin/img/sorting-icons.gif HTTP/1.1" 200 369
+[27/Oct/2016 16:39:31]"GET /fitapp/complete/?code=35ba8078621d67911c3d8bcd12989a5408a29a19&state=v7JEHPOHj00CqVx2Fc2X58JIG6yZ3c HTTP/1.1" 302 0
+[27/Oct/2016 16:39:31]"GET / HTTP/1.1" 200 4091
+[27/Oct/2016 16:39:33]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 16:39:37]"GET /fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30 HTTP/1.1" 200 1322
+[27/Oct/2016 16:39:41]"GET /fitapp/graph_sleep HTTP/1.1" 301 0
+[27/Oct/2016 16:39:41]"GET /fitapp/graph_sleep/ HTTP/1.1" 200 9968
+[27/Oct/2016 16:39:43]"GET /static/data/data.tsv HTTP/1.1" 200 1201
+[27/Oct/2016 16:39:50]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 16:39:51]"GET /fitapp/graph_step HTTP/1.1" 301 0
+[27/Oct/2016 16:39:52]"GET /fitapp/graph_step/ HTTP/1.1" 200 3534
+[27/Oct/2016 16:39:52]"GET /static/data/masati/2016-09.tsv HTTP/1.1" 200 167
+[27/Oct/2016 16:39:56]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 16:39:57]"POST /admin/auth/user/ HTTP/1.1" 200 2792
+[27/Oct/2016 16:39:59]"POST /admin/auth/user/ HTTP/1.1" 302 0
+[27/Oct/2016 16:39:59]"GET /admin/auth/user/ HTTP/1.1" 200 10092
+[27/Oct/2016 16:39:59]"GET /home HTTP/1.1" 200 4091
+[27/Oct/2016 16:39:59]"GET /admin/jsi18n/ HTTP/1.1" 200 2372
+[27/Oct/2016 16:39:59]"GET /static/admin/img/icon_success.gif HTTP/1.1" 200 341
+[27/Oct/2016 16:40:05]"GET /listSpecificPageWork?current_page=1 HTTP/1.1" 200 6509
+[27/Oct/2016 16:40:07]"GET /listSpecificPageWork?current_page=1 HTTP/1.1" 200 6509
+[27/Oct/2016 16:40:09]"GET /viewWork?memo_id=15&current_page=1&searchStr=None HTTP/1.1" 200 5441
+[27/Oct/2016 16:40:17]"GET /home HTTP/1.1" 200 4091
+[27/Oct/2016 16:40:22]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 16:40:25]"GET /fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30 HTTP/1.1" 200 1322
+[27/Oct/2016 17:08:48]"GET http://54.90.189.128/hello?proxy_ip=13.76.41.59&proxy_port=80&found_timestamp=1477588276 HTTP/1.1" 404 1745
+[27/Oct/2016 17:41:50]"GET / HTTP/1.1" 200 5850
+[27/Oct/2016 17:41:51]"GET /favicon.ico HTTP/1.1" 404 5031
+[27/Oct/2016 17:41:54]"GET /login HTTP/1.1" 200 5233
+[27/Oct/2016 17:42:08]"POST /auth HTTP/1.1" 302 0
+[27/Oct/2016 17:42:09]"GET /blog/loggedin HTTP/1.1" 200 4674
+[27/Oct/2016 17:42:11]"GET /home HTTP/1.1" 200 4094
+[27/Oct/2016 17:42:16]"GET /fitapp/home HTTP/1.1" 301 0
+[27/Oct/2016 17:42:16]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 17:42:19]"GET /fitapp/login HTTP/1.1" 301 0
+[27/Oct/2016 17:42:20]"GET /fitapp/login/ HTTP/1.1" 302 0
+ayfield ./fitapp/static/data/grayfield/grayfield_2016-09-01_2016-09-30.json
+user :  grayfield
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+base_date 2016-09-01
+period None
+end_date 2016-10-31
+user :  grayfield
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-10-31
+./fitapp/static/data/grayfield ./fitapp/static/data/grayfield/grayfield_2016-09-01_2016-10-31.json
+user :  grayfield
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-10-31
+masati 123123
+masati
+next_url :  None
+callback_uri :  http://fityou.xyz/fitapp/complete/
+fb :  <fitbit.api.Fitbit object at 0x7f7cf8054e10>
+token_url :  https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=227WVV&redirect_uri=http%3A%2F%2Ffityou.xyz%2Ffitapp%2Fcomplete%2F&scope=activity+nutrition+heartrate+location+nutrition+profile+settings+sleep+social+weight&state=v7JEHPOHj00CqVx2Fc2X58JIG6yZ3c
+code :  35ba8078621d67911c3d8bcd12989a5408a29a19
+callback_uri :  http://fityou.xyz/fitapp/complete/
+{u'token_type': u'Bearer', u'user_id': u'4ZFG7C', u'refresh_token': u'41d2334c98fe2dcf88b27111e63086b311127d7bfe3d0cb517a4445b6649fcca', u'access_token': u'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0WkZHN0MiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjE1MzE3LCJpYXQiOjE0Nzc1ODY1MTd9.NBLIMgyBNLbvu5fdW8KAKPvJ_Hp6Jo9fyjN_1WGEhws', u'scope': [u'weight', u'social', u'sleep', u'activity', u'heartrate', u'profile', u'location', u'nutrition', u'settings'], u'expires_in': 28800, u'expires_at': 1477615170.705725}
+access_token :  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0WkZHN0MiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjE1MzE3LCJpYXQiOjE0Nzc1ODY1MTd9.NBLIMgyBNLbvu5fdW8KAKPvJ_Hp6Jo9fyjN_1WGEhws
+fitbit_user :  4ZFG7C
+check!
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+user :  masati
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+./fitapp/static/data/masati ./fitapp/static/data/masati/masati_2016-09-01_2016-09-30.json
+user :  masati
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+current_page= 1
+getTotalPage #2
+totalPageList [1]
+current_page= 1
+getTotalPage #2
+totalPageList [1]
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+user :  masati
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+./fitapp/static/data/masati ./fitapp/static/data/masati/masati_2016-09-01_2016-09-30.json
+user :  masati
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+sprinch db022515
+sprinch
+next_url :  None
+callback_uri :  http://fityou.xyz/fitapp/complete/
+fb :  <fitbit.api.Fitbit object at 0x7f7cf26d3a90>
+token_url :  https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=227WVV&redirect_uri=http%3A%2F%2Ffityou.xyz%2Ffitapp%2Fcomplete%2F&scope=activity+nutrition+heartrate+location+nutrition+profile+settings+sleep+social+weight&state=SRdWUwayHwtsSRyQ1Adns3pPFE4dJl
+code :  7c59bfddfee422a85a2ffef08f708e6f1a0dc134
+callback_uri :  http://fityou.xyz/fitapp/complete/
+{u'token_type': u'Bearer', u'user_id': u'3SZTSY', u'refresh_token': u'6e3eecee71226982f36eaf4800c1c070379a4caec4205c4c169ddb9d39cb5f5e', u'access_token': u'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzU1pUU1kiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjE5MDkwLCJpYXQiOjE0Nzc1OTAyOTB9.xLF9jGw2MQn1OBTr2kVBr8uS4BQrtEu0yLmFvnLv4fU', u'scope': [u'weight', u'social', u'sleep', u'activity', u'heartrate', u'profile', u'location', u'nutrition', u'settings'], u'expires_in': 28800, u'expires_at': 1477618943.132723}
+access_token :  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzU1pUU1kiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJ[27/Oct/2016 17:42:23]"GET /fitapp/complete/?code=7c59bfddfee422a85a2ffef08f708e6f1a0dc134&state=SRdWUwayHwtsSRyQ1Adns3pPFE4dJl HTTP/1.1" 302 0
+[27/Oct/2016 17:42:23]"GET /fitapp/exist/ HTTP/1.1" 200 654
+[27/Oct/2016 17:42:33]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 17:42:36]"GET /fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30 HTTP/1.1" 500 81132
+[27/Oct/2016 17:42:37]"GET /fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30 HTTP/1.1" 500 79928
+[27/Oct/2016 17:42:51]"GET /fitapp/login/ HTTP/1.1" 302 0
+[27/Oct/2016 17:42:54]"GET /fitapp/complete/?code=2955d0dfda29b1f66579cdcf889a73aca19ce1a3&state=9R0piuIocsPLUvsoJMg16oYaXDOSdA HTTP/1.1" 302 0
+[27/Oct/2016 17:42:54]"GET / HTTP/1.1" 200 4094
+[27/Oct/2016 17:43:00]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 17:43:03]"GET /fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30 HTTP/1.1" 200 1322
+[27/Oct/2016 17:43:07]"GET /fitapp/graph_step HTTP/1.1" 301 0
+[27/Oct/2016 17:43:08]"GET /fitapp/graph_step/ HTTP/1.1" 200 3536
+[27/Oct/2016 17:43:09]"GET /static/data/sprinch/2016-09.tsv HTTP/1.1" 200 167
+[27/Oct/2016 17:49:59]"GET /fitapp/home/ HTTP/1.1" 200 991
+[27/Oct/2016 17:50:03]"GET /fitapp/graph_step/ HTTP/1.1" 200 3534
+[27/Oct/2016 17:50:04]"GET /static/data/test03/2016-09.tsv HTTP/1.1" 304 0
+[27/Oct/2016 17:50:46]"GET /fitapp/graph_step/ HTTP/1.1" 200 3536
+[27/Oct/2016 17:50:47]"GET /static/data/sprinch/2016-09.tsv HTTP/1.1" 304 0
+[27/Oct/2016 21:11:38]"GET /wp-login.php HTTP/1.0" 404 5034
+[27/Oct/2016 21:11:39]"GET /administrator/index.php HTTP/1.0" 404 5067
+[27/Oct/2016 21:38:09]"GET / HTTP/1.1" 200 5850
+[28/Oct/2016 02:36:21]"GET /fitapp/graph_step/ HTTP/1.1" 200 3534
+[28/Oct/2016 02:36:23]"GET /static/data/test03/2016-09.tsv HTTP/1.1" 200 282
+wcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjE5MDkwLCJpYXQiOjE0Nzc1OTAyOTB9.xLF9jGw2MQn1OBTr2kVBr8uS4BQrtEu0yLmFvnLv4fU
+fitbit_user :  3SZTSY
+2
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+user :  sprinch
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+./fitapp/static/data/sprinch ./fitapp/static/data/sprinch/sprinch_2016-09-01_2016-09-30.json
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+user :  sprinch
+resource_type :  activities/steps
+./fitapp/static/data/sprinch ./fitapp/static/data/sprinch/sprinch_2016-09-01_2016-09-30.json
+next_url :  None
+callback_uri :  http://fityou.xyz/fitapp/complete/
+fb :  <fitbit.api.Fitbit object at 0x7f7cf37585d0>
+token_url :  https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=227WVV&redirect_uri=http%3A%2F%2Ffityou.xyz%2Ffitapp%2Fcomplete%2F&scope=activity+nutrition+heartrate+location+nutrition+profile+settings+sleep+social+weight&state=9R0piuIocsPLUvsoJMg16oYaXDOSdA
+code :  2955d0dfda29b1f66579cdcf889a73aca19ce1a3
+callback_uri :  http://fityou.xyz/fitapp/complete/
+{u'token_type': u'Bearer', u'user_id': u'3SZTSY', u'refresh_token': u'16a4883d1c9152311697208142c96146489f5961d84ce06798c390ee8d6f26aa', u'access_token': u'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzU1pUU1kiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjE5MTIwLCJpYXQiOjE0Nzc1OTAzMjB9.4TPVZui6bNlNLsL96OsuZh0ZmaskemtLbDanbDcjj3c', u'scope': [u'weight', u'social', u'sleep', u'activity', u'heartrate', u'profile', u'location', u'nutrition', u'settings'], u'expires_in': 28800, u'expires_at': 1477618973.563701}
+access_token :  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzU1pUU1kiLCJhdWQiOiIyMjdXVlYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDc3NjE5MTIwLCJpYXQiOjE0Nzc1OTAzMjB9.4TPVZui6bNlNLsL96OsuZh0ZmaskemtLbDanbDcjj3c
+fitbit_user :  3SZTSY
+check!
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+user :  sprinch
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30
+./fitapp/static/data/sprinch ./fitapp/static/data/sprinch/sprinch_2016-09-01_2016-09-30.json
+user :  sprinch
+resource_type :  activities/steps
+base_date 2016-09-01
+period None
+end_date 2016-09-30

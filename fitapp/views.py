@@ -1,5 +1,6 @@
 import json
 import os
+import datetime
 #import fitbit
 
 from dateutil import parser
@@ -20,6 +21,8 @@ from fitbit.exceptions import (HTTPUnauthorized, HTTPForbidden, HTTPConflict,
                                HTTPServerError)
 
 from . import forms
+# for the extraction step
+from extract_daily_step import extract_daily_step
 from . import utils
 from .models import UserFitbit, TimeSeriesData, TimeSeriesDataType
 from .tasks import get_time_series_data, subscribe, unsubscribe
@@ -100,9 +103,11 @@ def complete(request):
         print "access_token : ",access_token
         print "fitbit_user : ",fitbit_user
     except KeyError:
+        print "1"
         return redirect(reverse('fitbit-error'))
 
     if UserFitbit.objects.filter(fitbit_user=fitbit_user).exists():
+        print "2"
         return redirect(reverse('fitbit-exist'))
 
     fbuser, _ = UserFitbit.objects.get_or_create(user=request.user)
@@ -151,6 +156,9 @@ def create_fitbit_session(sender, request, user, **kwargs):
 @login_required
 def exist(request):
     return render(request, 'fitapp/exist.html', {}) 
+
+def home(request):
+    return render(request, 'fitapp/home.html', {})
 
 @login_required
 def error(request):
@@ -329,19 +337,145 @@ def get_steps(request):
         os.makedirs(directory)
 
     base_date = request.GET.get('base_date', None)
-    print "base_date",base_date
+    print "base_date : ",base_date
     period = request.GET.get('period', None)
-    print "period",period
+    print "period : ",period
     end_date = request.GET.get('end_date', None)
-    print "end_date",end_date
+    print "end_date : ",end_date
 
     health_step = get_data(request, 'activities', 'steps')
-    print health_step
+    #print "asdfdasf",str(health_step).split('\n')[2]i
+    health_step = str(health_step).split('\n')[2]
     name = directory+"/"+user+"_"+str(base_date)+"_"+str(end_date)+".json"
     f = open(name, 'w')
-    f.write(str(health_step))
+    f.write(health_step)
     f.close()
+
+    # directory , read_filename
+    extract_daily_step(directory, name)
     return get_data(request, 'activities', 'steps')
+
+@require_GET
+def get_today_steps(request):
+    """An AJAX view that retrieves this user's step data from Fitbit.
+
+    This view has been deprecated. Use `get_data` instead.
+
+    URL name:
+        `fitbit-steps`
+    """
+    # save step data
+    user = str(request.user)
+    directory = "./fitapp/static/data/"+user
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
+    # calculate present time
+    now = datetime.datetime.now()
+    nowDate = now.strftime('%Y-%m-%d')
+    
+    base_date = nowDate
+    #base_date = request.GET.get('base_date', None)
+    print "base_date : ",base_date
+    period = request.GET.get('period', None)
+    print "period : ",period
+    end_date = nowDate
+    #end_date = request.GET.get('end_date', None)
+    print "end_date : ",end_date
+
+    health_step = get_today_data(request, 'activities', 'steps')
+    #print "asdfdasf",str(health_step).split('\n')[2]
+    health_step = str(health_step).split('\n')[2]
+    today_step_data = json.loads(health_step)
+    print "today_step_data : ",today_step_data
+    result = today_step_data['objects'][0]['value']
+    print "return data : ",today_step_data['objects'][0]['value']    
+    print "result : ",result   
+
+    name = directory+"/"+user+"_"+str(base_date)+"_"+str(end_date)+".json"
+    f = open(name, 'w')
+    f.write(health_step)
+    f.close()
+
+    # directory , read_filename
+    extract_daily_step(directory, name)
+    return make_response(100,result)
+
+@require_GET
+def get_today_data(request, category, resource):
+    # Manually check that user is logged in and integrated with Fitbit.
+    # 1. insert user
+    user = request.user
+    print "user : ",user
+    # calculate present time
+    now = datetime.datetime.now()
+    nowDate = now.strftime('%Y-%m-%d')
+
+    try:
+        resource_type = TimeSeriesDataType.objects.get(
+            category=getattr(TimeSeriesDataType, category), resource=resource)
+        print "resource_type : ",resource_type
+    except:
+        return make_response(104)
+
+    fitapp_subscribe = utils.get_setting('FITAPP_SUBSCRIBE')
+    if not user.is_authenticated() or not user.is_active:
+        return make_response(101)
+    if not fitapp_subscribe and not utils.is_integrated(user):
+        return make_response(102)
+
+    #base_date = request.GET.get('base_date', None)
+    base_date = nowDate
+    print "base_date : ",base_date
+    period = request.GET.get('period', None)
+    print "period : ",period
+    end_date = nowDate
+    #end_date = request.GET.get('end_date', None)
+    print "end_date : ",end_date
+
+    if period and not end_date:
+        form = forms.PeriodForm({'base_date': base_date, 'period': period})
+    elif end_date and not period:
+        form = forms.RangeForm({'base_date': base_date, 'end_date': end_date})
+        print "check today!"
+    else:
+        # Either end_date or period, but not both, must be specified.
+        print "no fitbit data!"
+        return make_response(104)
+
+    fitbit_data = form.get_fitbit_data()
+    if not fitbit_data:
+        print "no fitbit data!"
+        return make_response(104)
+
+    if fitapp_subscribe:
+        # Get the data directly from the database.
+        date_range = normalize_date_range(request, fitbit_data)
+        existing_data = TimeSeriesData.objects.filter(
+            user=user, resource_type=resource_type, **date_range)
+        simplified_data = [{'value': d.value, 'dateTime': d.string_date()}
+                           for d in existing_data]
+        return make_response(100, simplified_data)
+
+    # Request data through the API and handle related errors.
+    fbuser = UserFitbit.objects.get(user=user)
+    try:
+        data = utils.get_fitbit_data(fbuser, resource_type, **fitbit_data)
+    except (HTTPUnauthorized, HTTPForbidden):
+        # Delete invalid credentials.
+        fbuser.delete()
+        return make_response(103)
+    except HTTPConflict:
+        return make_response(105)
+    except HTTPServerError:
+        return make_response(106)
+    except:
+        # Other documented exceptions include TypeError, ValueError,
+        # HTTPNotFound, and HTTPBadRequest. But they shouldn't occur, so we'll
+        # send a 500 and check it out.
+        raise
+    #print "return data : ",data
+    return make_response(100, data)
 
 
 @require_GET
@@ -405,9 +539,15 @@ def get_data(request, category, resource):
 
     URL name:
         `fitbit-data`
+
+    example form
+	step:  '/1/user/'+fitbit_id+'/activities/steps/date/2016-04-'+day+'/1d/1min.json'
+	heart: '/1/user/'+fitbit_id+'/activities/heart/date/2016-05-'+day+'/1d.json'
+	sleep: '/1/user/'+fitbit_id+'/sleep/date/2016-04-'+day+'.json'
     """
 
     # Manually check that user is logged in and integrated with Fitbit.
+    # 1. insert user
     user = request.user
     print "user : ",user
     try:
@@ -424,11 +564,11 @@ def get_data(request, category, resource):
         return make_response(102)
 
     base_date = request.GET.get('base_date', None)
-    print "base_date",base_date
+    print "base_date : ",base_date
     period = request.GET.get('period', None)
-    print "period",period
+    print "period : ",period
     end_date = request.GET.get('end_date', None)
-    print "end_date",end_date
+    print "end_date : ",end_date
     if period and not end_date:
         form = forms.PeriodForm({'base_date': base_date, 'period': period})
     elif end_date and not period:
@@ -439,6 +579,7 @@ def get_data(request, category, resource):
 
     fitbit_data = form.get_fitbit_data()
     if not fitbit_data:
+        print "no fitbit data!"
         return make_response(104)
 
     if fitapp_subscribe:
@@ -474,4 +615,9 @@ def get_data(request, category, resource):
 def graph_sleep(request):
     return render(request, 'fitapp/graph_sleep.html', {})
 
+def graph_step(request):
+    return render(request, 'fitapp/graph_step.html', {})
+
+def status(request):
+    return render(request, 'fitapp/radar/index.html', {})
 

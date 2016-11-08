@@ -1,0 +1,23 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+{% load staticfiles %}
+    <br>
+    <h2>Fitcraft Item Shop</h2>
+    <div>
+        <img src="/static/image/materials.png">
+        <img src="/static/image/seeds.png">
+        <img src="/static/image/armors.png"><br>
+        <img src="/static/image/enchantedBook.png">
+        <img src="/static/image/animals.png">
+        <img src="/static/image/vegetables.png">
+    </div>
+    <p style="font-family:'sans serif'">* 시세는 바뀔 수 있습니다 또한 모든 아이템이 표시되지 않습니다! 더 많은 상인들을 찾아주세요! *</p>
+    <a href = "/home" class="btn btn-primary btn-large">
+        Home
+    </a>
+    <a href = "/fitcraft" class="btn btn-primary btn-large">
+        Back
+    </a>
+{% endblock %}
+~                

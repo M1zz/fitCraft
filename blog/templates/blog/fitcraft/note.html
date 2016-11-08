@@ -1,0 +1,81 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+    <br>
+    <h2>Developer's patch note</h2>
+    <div style="font-family:'sans serif'">
+2016.11.02 {<br>
+    1. [fitcraft] 이제 Fitcoin을 먹는것 만으로 fitPoint를 얻을 수 있습니다. 1개당 100점을 얻을<br>
+    수 있으며 기존의 아이템을 살 수 있던 기능은 그대료 유효합니다.<br>
+    2. [fitcraft] wand의 명령어로 금도끼를 받을 수 있으며 좌클릭 우클릭으로 공간을 지정할<br>    
+    수 있습니다. <br>
+    공간지정 후 /fitcraft create "이름" 을 하면 자신의 땅을 살 수 있습니다. 땅은 fitPoint로 살<br>    
+    수 있으며 1칸에 100 fitPoint로 판매하고 있습니다. 자신의 땅은 보호 받을 수 있습니다.<br>
+    3. [fitcraft] 자신의 땅에는 /fitcraft tp "이름" 으로 순간이동 하여 이동할 수 있습니다.<br>
+}<br>
+2016.10.27 {<br>
+    1. Trading_v3.2.jar 플러그인 추가 이제 /trade "사용자"로 교환을 신청할 수 있습니다.<br>
+    2. DungeonMaze.jar 플러그인 추가 이제 던전을 탐험할 수 있습니다.<br>
+}<br>
+2016.10.23 {<br>
+    1. EssentialsX-2.0.1.jar 플러그인 추가 이제 /sethome으로 집을 설정하고 /home 으로 집<br>
+    으로 돌아갈 수 있습니다.<br>
+    2. LockSecurity.jar 플러그인 추가 이제 키를 만들어서 당신의 상자를 잠글 수 있습니다.<br>
+    잠긴상자는 부숴지지 않으며 키로만 열 수 있습니다.<br>
+    키 만드는 법 : https://dev.bukkit.org/bukkit-plugins/lock-security/<br>
+}<br>
+2016.10.20 {<br>
+    1. Regios.jar 플러그인 추가 이제 지역을 보호할 수 있습니다 권한에 대해서는 추가로 공지<br>
+    할게요!<br>
+    2. Dynmap-Regios.jar 플러그인 추가 이제 맵에서 할당된 지역을 볼 수 있습니다.<br>
+}<br>
+2016.10.15 {<br>
+    1. RecipeFinder.jar 플러그인 추가 아이템 이름을 가지고 제작 방법을 알 수 있습니다. <br>
+    *사용방법 : /recipe 를 입력하시면 현재 들고있는 아이템의 조합법이 보입니다.<br>
+                   /recipe item name 을 입력하시면 아이템의 조합법을 볼 수 있습니다.<br>
+    2. [fitcraft] 블록파괴시 얻은 점수 1000점당 /fitcraft score 로 silver fitcoin 을 얻을 <br>
+    수 있습니다.<br>
+}<br>
+2016.10.14 {<br>
+    1. dynmap-2.3.jar 플러그인 추가 이제 맵 전체의 모습과 현재 접속자를 확인 할 수 
+    있습니다. <br>
+    *사용방법 : 브라우져에서 서버IP:8123 로 접속 하시면 됩니다.<br>
+}<br>
+2016.10.13 {<br>
+    1. 마을에서의 안전을 위하여 골렘을 배치하였습니다. 마을에서는 안전하세요!<br>
+    2. 보물 사냥꾼이 보물지도를 판매하기 시작하였습니다! 보물을<br> 찾아 떠나세요!
+      3. 농작물 및 생산품을 판매하세요! 상인이 사줄꺼에요.<br>
+}<br>
+2016.10.12 {<br>
+    1. AntiCreeper 플러그인 추가<br>
+    2. 이제 크리퍼 걱정하지 마세요! 당신의 집은 안전합니다.<br>
+}<br>
+2016.10.11 {<br>
+    1. AutoSaveWorld 플러그인 추가<br>
+    2. 데이터를 자동으로 세이브 하게 되었습니다. 더 이상 데이터가 날아갈 걱정하지 마세요!<br>
+}<br>
+2016.10.01 {<br>
+    1. [fitcraft] 블록 파괴시 점수를 추가하며 점수를 화면 우측에 보여줍니다.<br>
+    2. 만일 플레이어가 죽으면 점수는 절반이 됩니다.<br>
+}<br>
+2016.09.28 {<br>
+    1. Shopkeepers 플러그인 추가<br>
+    2. NPC를 추가하여 fitcoin으로 아이템을 구입할 수 있습니다.<br>
+}<br>
+2016.09.25 {<br>
+    1. fitcraft 플러그인 추가<br>
+    2. 이제 걸음수를 동기화 하여 Fitcoin을 얻을 수 있습니다.<br>
+}<br>
+    </div>
+    <a href = "/home" class="btn btn-primary btn-large">
+        Home
+    </a>
+    <a href = "/fitcraft" class="btn btn-primary btn-large">
+        Back
+    </a>
+    <br>
+    <br>
+    Developer : Leo <br>
+    E-mail    : leeo75@cs-cnu.org <br>
+{% endblock %}
+~                

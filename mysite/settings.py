@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'blog',
     'fitapp',
+    'plus',
 )
 
 MIDDLEWARE_CLASSES = (

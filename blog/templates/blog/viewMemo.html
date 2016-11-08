@@ -1,0 +1,25 @@
+{% extends "admin_base.html"%}
+
+{% block content %}
+<br><br>
+<h2> Memo</h2>
+  <table cellspacing = 0 cellpadding = 5 width=500 class="table" style="font-family:'sans serif'">
+      <tr><td><b>조회수</b></td><td> {{ boardData.hits }} </td></tr>
+      <tr><td><b>이름 </b></td><td> {{ boardData.name }} </td></tr>
+      <tr><td><b>이메일 </b></td><td> {{ boardData.mail }} </td></tr>
+      <tr><td><b>제목 </b></td><td> {{ boardData.subject }} </td></tr>
+      <tr><td><b>내용 </b></td><td width=350> {{ boardData.memo }} </td></tr>
+  </table>
+
+  <table  cellspacing = 0 cellpadding = 0 width=500 class="table">
+      <tr><td>
+          <input type=button value="수정" class="btn btn-primary btn-large" OnClick="javascript:boardmodify()">
+          <input type=button value="목록" class="btn btn-primary btn-large" OnClick="javascript:boardlist()">
+          <input type=button value="삭제" class="btn btn-primary btn-large" OnClick="javascript:boarddelete()">
+          <a href = "/home" class="btn btn-primary btn-large">
+              Home
+          </a>
+
+      </td></tr>
+  </table>
+{% endblock %}

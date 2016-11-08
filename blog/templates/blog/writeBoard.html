@@ -1,0 +1,18 @@
+{% extends "admin_base.html"%}
+
+{% block content %}
+
+<br><br>
+<div align = "center">
+<h2>Write Post</h2>
+<table class="table">
+    <form name=writeform method="post" action="DoWriteBoard">{% csrf_token %}
+        <tr><td><b>이름</b></td><td><input type=text name=name size=50  maxlength=50></td></tr>
+        <tr><td><b>이메일</b></td><td><input type=text name=email size=50  maxlength=50></td></tr>
+        <tr><td><b>제목</b></td><td><input type=text name=subject size=50  maxlength=50></td></tr>
+        <tr><td><b>내용</b></td><td><textarea name=memo cols=50 rows=10></textarea>
+            <br><input type="submit" value="Write" class="btn btn-primary btn-large"></td></tr>
+    </form>
+</table>
+
+{% endblock %}

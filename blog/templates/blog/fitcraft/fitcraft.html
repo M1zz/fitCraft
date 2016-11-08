@@ -1,0 +1,40 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+{% load staticfiles %}
+    <div style ="background-image:url(/static/image/minecraft-background.png);height: 800px;" align = "center">
+    <br>
+    <h1>welcome to fitcraft</h1><br>
+    {% if user.is_authenticated %}
+    <div align = "right">
+        {{ user.username }} hi! ^.^
+    </div>
+    <a href = "http://sokulee.xyz:8123/" class="btn btn-primary btn-large">
+        Map
+    </a>
+    <a href = "/fitcraft/item" class="btn btn-primary btn-large">
+        Item
+    </a>
+    <a href = "/fitcraft/howToPlay" class="btn btn-primary btn-large">
+        How to play
+    </a>
+    <a href = "/fitcraft/sync" class="btn btn-primary btn-large">
+        Sync
+    </a>
+    <a href = "/fitcraft/note" class="btn btn-primary btn-large">
+        Developer's Note
+    </a>
+    <a href = "/home" class="btn btn-primary btn-large">
+        Home
+    </a>
+    {% else %}
+        <a href = "/login" class="btn btn-primary btn-large">
+            Login
+        </a>&nbsp;
+        <a href = "/register" class="btn btn-primary btn-large">
+            Register
+        </a>&nbsp;
+    {% endif %}
+    </div>
+{% endblock %}
+~                
