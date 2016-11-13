@@ -1,6 +1,10 @@
 import json
 import os
 import datetime
+#from datetime import date, timedelta
+
+from django.db import models
+from blog.models import Profile
 #import fitbit
 
 from dateutil import parser
@@ -369,47 +373,129 @@ def get_today_steps(request):
     directory = "./fitapp/static/data/"+user
     if not os.path.exists(directory):
         os.makedirs(directory)
+
+    # setting user id
+    fit_user_id = request.user.id
+    print "user_id : ",fit_user_id
+
+    # select from database
+    old_fitPoint = 0
+    fit_profile = Profile.objects.get(user_id = fit_user_id)
+    old_fitPoint = fit_profile.fitPoint
+    old_sync_date = fit_profile.last_sync_date
+
+    # calculate yesterday
+    today 	= datetime.date.today()
+    yesterday 	= today - datetime.timedelta(1)
+    yesterday	= yesterday.strftime('%Y-%m-%d')
+    #nowDate 	= now.strftime('%Y-%m-%d')
+
     
-    # calculate present time
-    now = datetime.datetime.now()
-    nowDate = now.strftime('%Y-%m-%d')
-    
-    base_date = nowDate
-    #base_date = request.GET.get('base_date', None)
+    print "old_fitPoint : ",old_fitPoint
+    print "old_sync_date : ",old_sync_date
+    print "Compare_data : ",str(yesterday)+" 00:00:00+00:00"   
+ 
+    # setting the searching date
+    base_date 	= old_sync_date
+    period 	= request.GET.get('period', None)
+    end_date 	= yesterday
     print "base_date : ",base_date
-    period = request.GET.get('period', None)
-    print "period : ",period
-    end_date = nowDate
-    #end_date = request.GET.get('end_date', None)
-    print "end_date : ",end_date
+    
+    # last sycn , yesterday to sync all data from last sync date
+    
+    # will be deleted
+    # get step data
+    #health_step = get_today_data(base_date, 'activities', 'steps')
+    #health_step = str(health_step).split('\n')[2]
+    #today_step_data = json.loads(health_step)
+    #print "today_step_data : ",today_step_data
+    #result = today_step_data['objects'][0]['value']
+    #print "result : ",result 
 
-    health_step = get_today_data(request, 'activities', 'steps')
-    #print "asdfdasf",str(health_step).split('\n')[2]
-    health_step = str(health_step).split('\n')[2]
-    today_step_data = json.loads(health_step)
-    print "today_step_data : ",today_step_data
-    result = today_step_data['objects'][0]['value']
-    print "return data : ",today_step_data['objects'][0]['value']    
-    print "result : ",result   
+    # calculate fitpoint  
+    #fitPoint = int(result)/500
+    #print "fitPoint : ",fitPoint
 
-    name = directory+"/"+user+"_"+str(base_date)+"_"+str(end_date)+".json"
-    f = open(name, 'w')
-    f.write(health_step)
-    f.close()
+    # file writing
+    #name = directory+"/"+user+"_"+str(base_date)+"_"+str(end_date)+".json"
+    #f = open(name, 'w')
+    #f.write(health_step)
+    #f.close()
 
     # directory , read_filename
-    extract_daily_step(directory, name)
-    return make_response(100,result)
+    #extract_daily_step(directory, name)
+    #yesterday = base_date - datetime.timedelta(days=3)
+    #Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = yesterday)
+    #return 0
+    update_total_step = 0
+    update_total_fitPoint = 0
+
+    #if (str(base_date) == str(yesterday)+" 00:00:00+00:00"):
+        # update fitPoint
+    #    Profile.objects.filter(user_id=fit_user_id).update(fitPoint = old_fitPoint + fitPoint)
+    #    print "Updated fitPoint : ",old_fitPoint + fitPoint
+    #    Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = yesterday)
+    #    print "date : ",base_date
+
+    # compare and sync
+    print str(base_date),str(yesterday)+" 00:00:00+00:00"
+    while str(base_date) != str(yesterday)+" 00:00:00+00:00":
+        # get step data
+        print "get data!"
+        health_step = get_today_data(request, 'activities', 'steps',base_date)
+        health_step = str(health_step).split('\n')[2]
+        today_step_data = json.loads(health_step)
+        print "today_step_data : ",today_step_data
+
+        # result null exception
+        try:
+            result = today_step_data['objects'][0]['value']
+        except:
+            return render(request,'fitapp/sync_error.html',{})
+        if result == '0':
+            return render(request,'fitapp/sync_error.html',{})
+            print "Need to sync"
+
+        update_total_step = int(result) + update_total_step
+        print "result : ",result
+        print "update_total_step : ",update_total_step
+
+        # calculate fitpoint  
+        fitPoint = int(result)/500
+        update_total_fitPoint = update_total_fitPoint + fitPoint
+        print "fitPoint : ",fitPoint
+        
+        # increase date
+        base_date = base_date + datetime.timedelta(days=1)
+        print "date : ",base_date,str(yesterday)+" 00:00:00+00:00"
+
+    print "Sync done!"
+    
+    if update_total_step == 0:
+        print "nothing to sync!"
+        return render(request,'fitapp/sync_error.html',{})
+
+    print "************* start update ***************"
+    Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = base_date)
+    Profile.objects.filter(user_id=fit_user_id).update(fitPoint = old_fitPoint + update_total_fitPoint)
+
+    #else:
+    #    print "You already get reward!!!!"
+    #    return make_response(100,"error")
+    
+    return render(request, 'fitapp/sync_done.html', {'fitpoint':update_total_fitPoint})
+    #return make_response(100,result)
 
 @require_GET
-def get_today_data(request, category, resource):
+def get_today_data(request, category, resource, base_date):
     # Manually check that user is logged in and integrated with Fitbit.
     # 1. insert user
     user = request.user
-    print "user : ",user
+    print "user : ",user,base_date
     # calculate present time
-    now = datetime.datetime.now()
-    nowDate = now.strftime('%Y-%m-%d')
+    today 	= datetime.date.today()
+    yesterday   = today - datetime.timedelta(1)
+    yesterday   = yesterday.strftime('%Y-%m-%d')
 
     try:
         resource_type = TimeSeriesDataType.objects.get(
@@ -425,11 +511,11 @@ def get_today_data(request, category, resource):
         return make_response(102)
 
     #base_date = request.GET.get('base_date', None)
-    base_date = nowDate
+    base_date = yesterday
     print "base_date : ",base_date
     period = request.GET.get('period', None)
     print "period : ",period
-    end_date = nowDate
+    end_date = yesterday
     #end_date = request.GET.get('end_date', None)
     print "end_date : ",end_date
 

@@ -9,6 +9,7 @@
   </head>
   <body>
     <table border=1>
+      {{ activitylist }}
       {% for item in activitylist.items %}
       <tr><td>{{ item.object.content|safe }}</td></tr>
       {% endfor %}

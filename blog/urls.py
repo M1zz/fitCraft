@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^fitcraft/note', views.note, name='note'),
 
     # board
+    url(r'^rank$', views.get_rank, name='fit_rank'),
     url(r'^fit_board$', views.fit_board, name='fit_board'),
     url(r'^show_write_form$', views.show_write_form, name='board_write'),
     url(r'^DoWriteBoard$', views.DoWriteBoard, name='DoWriteBoard'),

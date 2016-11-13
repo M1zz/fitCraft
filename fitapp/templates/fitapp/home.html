@@ -9,18 +9,18 @@
     <body>
     {% if user.is_authenticated %}
     <div align = "right">
-        {{ user.username }} hi! ^.^
+        {{ user.username }} hi! ^.^ [{{ user.profile.fitPoint }} Point]
     </div>
         <h1>Health data</h1>
         <div>  
         <a href = "/fitapp/login" class="btn btn-primary btn-large">
             Fitbit Token
         </a>&nbsp;
-        <a href = "http://fityou.xyz/fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30" class="btn btn-primary btn-large">
+ <!--       <a href = "http://fityou.xyz/fitapp/get_steps/?base_date=2016-09-01&end_date=2016-09-30" class="btn btn-primary btn-large">
             Get Step[Sep]
-        </a>&nbsp;
+        </a>&nbsp;-->
         <a href = "http://fityou.xyz/fitapp/get_today_steps/?base_date=2016-11-08&end_date=2016-11-08" class="btn btn-primary btn-large">
-            Get Today Step
+            Get Today Fitpoint
         </a>&nbsp;
         <a href = "/fitapp/graph_sleep" class="btn btn-primary btn-large">
             Sleep_graph

@@ -4,11 +4,16 @@ from django.template.response import TemplateResponse
 # Auth
 from django.contrib import auth
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 # register
 from forms import MyRegistrationForm
 from django.shortcuts import render_to_response
 from django.core.context_processors import csrf
+
+# fityou fitpoint
+from blog.models import Profile
+from operator import itemgetter
 
 # wirte post
 from blog.models import DjangoBoard
@@ -64,9 +69,6 @@ def sync(request):
 def note(request):
     return render(request, 'blog/fitcraft/note.html', {})
 
-
-
-
 def DoWriteBoard(request):
     br = DjangoBoard (subject = request.POST['subject'],
                       name = request.POST['name'],
@@ -99,6 +101,32 @@ def listSpecificPageWork(request):
     print 'totalPageList', totalPageList
 
     return render_to_response('blog/listSpecificPage.html', {'boardList': boardList, 'totalCnt': totalCnt,'current_page':int(current_page) ,'totalPageList':totalPageList} )
+
+def get_rank(request):
+    idData = []
+    pointData = []
+    idList = User.objects.all()
+    pointList = Profile.objects.all()
+    rangeList = range(User.objects.all().count())
+    print rangeList
+    ranking = {}
+    for i in range(User.objects.all().count()):
+        ranking[idList[i].username] = pointList[i].fitPoint
+        idData.append(idList[i].username)
+        pointData.append(pointList[i].fitPoint)
+        #print idData , pointData
+    ranking = sorted(ranking.iteritems(), key=itemgetter(1), reverse=True)
+    # init list
+    idData = []
+    pointData = []
+
+    for sep in ranking:
+        idData.append(sep[0])
+        pointData.append(sep[1])
+    print ranking
+    pointList = Profile.objects.raw('SELECT fitPoint FROM blog_profile ')
+    return render_to_response('blog/rank.html', {'idList': idData, 'pointList': pointData} )
+    
 
 def viewWork(request):
     pk= request.GET['memo_id']
@@ -153,7 +181,6 @@ def register(request):
     args.update(csrf(request))
 
     args['form'] = MyRegistrationForm()
-    
     return render_to_response('blog/register.html',args)
 
 def register_success(request):

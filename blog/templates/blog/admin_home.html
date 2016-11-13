@@ -30,7 +30,7 @@
     {% else %}
     <!--if user is authenticated-->
     <div align = "right">
-        {{ user.username }} hi! ^.^
+        {{ user.username }} hi! ^.^ [ {{ user.profile.fitPoint }} Point ]
         <a href = "logout" class="btn btn-primary btn-large">
             Logout
         </a>&nbsp;<br><br>
@@ -48,12 +48,17 @@
         <a href = "/listSpecificPageWork?current_page=1" class="btn btn-primary btn-large">
             Board
         </a>&nbsp;
+        <a href = "/rank" class="btn btn-primary btn-large">
+            Rank
+        </a>&nbsp;
     </div>
     <br>
     {% endif %}
     <div align = "center">
         <b style='color:blue; font-size:13pt;'>Notice(last updated 10/26)</b><br>
         <div style='font-size:13pt;width:600px;text-align:left;'>
+            <li> Ranking board (11/11)
+            <li> Fit-point system (11/02)
             <li> Free board (10/26)
             <li> Fitbit Sync (10/25)
             <li> Login / Logout (10/24)

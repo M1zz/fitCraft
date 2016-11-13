@@ -1,6 +1,7 @@
 import os
 import logging
 import httplib2
+import json
 
 from googleapiclient.discovery import build
 from django.contrib.auth.decorators import login_required
@@ -29,6 +30,10 @@ FLOW = flow_from_clientsecrets(
     #scope='https://www.googleapis.com/auth/plus.me',
     redirect_uri='http://fityou.xyz/google/oauth2callback')
 
+#DATA_SOURCE = "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps"
+DATA_SOURCE = "raw:com.google.step_count.delta:com.xiaomi.hm.health:"
+
+DATA_SET = "1370475368000000000-1571080168000000000"
 
 @login_required
 def index(request):
@@ -41,13 +46,14 @@ def index(request):
     else:
         http = httplib2.Http()
         http = credential.authorize(http)
-        service = build("plus", "v1", http=http)
-        activities = service.activities()
-        activitylist = activities.list(collection='public', userId='me').execute()
-        logging.info(activitylist)
-
+        service = build("fitness", "v1", http=http)
+        result = service.users().dataSources().datasets().get(userId='me', dataSourceId=DATA_SOURCE, datasetId=DATA_SET).execute()
+        #print json.loads(result)
+        json_string = json.dumps(result, encoding='utf-8') 
+        print json_string
+        #logging.info(activitylist)
         return render(request, 'plus/welcome.html', {
-                    'activitylist': activitylist,
+                    'activitylist': json_string,
                     })
 
 

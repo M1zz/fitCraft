@@ -1,6 +1,9 @@
+import datetime
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
@@ -29,3 +32,15 @@ class DjangoBoard(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     fitPoint = models.IntegerField(default = 0)
+    today       = datetime.date.today()
+    yesterday   = today - datetime.timedelta(2)
+    last_sync_date = models.DateTimeField(blank=True,default = yesterday)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

@@ -24,4 +24,4 @@ class MyRegistrationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('fitPoint',)
+        fields = ('fitPoint','last_sync_date')

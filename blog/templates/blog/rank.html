@@ -1,0 +1,52 @@
+{% extends "admin_base.html"%}
+
+{% block content %}
+<br>
+<table cellspacing=1 width=700 class="table" style="font-family:'sans serif'">
+    <tr>
+        <td width=30><p align=center>Rank</p>
+        </td>
+        <td width=150><p align=center>User Name</p>
+        </td>
+        <td width=100><p align=left>Fit point</p>
+        </td>
+    </tr>
+    {% if idList %}        
+        <ul>
+            {% for i in idList %}
+                {% for j in pointList %}
+                {% if forloop.counter == forloop.parentloop.counter %}
+            <tr>
+                    {% if forloop.counter == 1 %}
+                    <td width=50><p align=center>{{ forloop.counter }}</p></td>
+                    <td width=300><p align=center>♛ <b style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF">{{ i }}</b></p></td>
+                    <td width=110><p align=right></p>{{ j }}</td>
+                    {% elif forloop.counter == 2 %}
+                    <td width=50><p align=center>{{ forloop.counter }}</p></td>
+                    <td width=300><p align=center><b style="text-shadow: 0 0 3px #FF0000">{{ i }}</b></p></td>
+                    <td width=110><p align=right></p>{{ j }}</td>
+                    {% elif forloop.counter == 3 %}
+                    <td width=50><p align=center>{{ forloop.counter }}</p></td>
+                    <td width=300><p align=center><b style="text-shadow: 2px 2px 4px #000000">{{ i }}</b></p></td>
+                    <td width=110><p align=right></p>{{ j }}</td>
+                    {% else %}
+                    <td width=50><p align=center>{{ forloop.counter }}</p></td>
+                    <td width=300><p align=center>{{ i }}</p></td>
+                    <td width=110><p align=right></p>{{ j }}</td>                
+                    {% endif %}
+                {% endif %}
+            </tr>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Data.</p>
+    {% endif %}
+    <a href = "/home" class="btn btn-primary btn-large">
+         Home
+    </a>
+
+</table>
+
+
+{% endblock %}
