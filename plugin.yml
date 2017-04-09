@@ -1,0 +1,7 @@
+name: FitCraft
+main: com.leeo.fitcraft.FitcraftMain
+version: 1.0.9
+commands:
+  fitcraft:
+    usage: /fitcraft
+    description: Playing minecraft with fitness tracker
