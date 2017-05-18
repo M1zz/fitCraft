@@ -171,11 +171,11 @@ public class FitcraftCmd implements CommandExecutor{
                     if (response.toString().equals("200")){
                         ArrayList<String> newiteml = new ArrayList<>();
                         newiteml.add("");
-                        newiteml.add(ChatColor.GREEN + "FitSleep_EXP");
+                        newiteml.add(ChatColor.GREEN + "Exp_bottle to Level up");
                         
                         ItemStack newitem = new ItemStack(Material.EXP_BOTTLE);
                         ItemMeta newitemm = newitem.getItemMeta();
-                        newitemm.setDisplayName("Exp_bottle to Level up");
+                        newitemm.setDisplayName("FitSleep_EXP");
                         newitemm.setLore(newiteml);
                         newitem.setItemMeta(newitemm);
                         
