@@ -1,6 +1,24 @@
-{% extends "admin_base.html"%}
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking board</title>
+    {% load staticfiles %}
+    <!--<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>-->
+    <script>
+    function cancel() {
+        location.href="/home";
+    }
+    </script>
+    <link rel="stylesheet" href="/static/css/table_style.css">
+    <!-- Bootstrap core CSS -->
+    
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-{% block content %}
+
+    </head>
+    <body>
 
 <br><br>
 <div align = "center">
@@ -11,8 +29,10 @@
         <tr><td><b>이메일</b></td><td><input type=text name=email size=50  maxlength=50></td></tr>
         <tr><td><b>제목</b></td><td><input type=text name=subject size=50  maxlength=50></td></tr>
         <tr><td><b>내용</b></td><td><textarea name=memo cols=50 rows=10></textarea>
-            <br><input type="submit" value="Write" class="btn btn-primary btn-large"></td></tr>
+            <br><input type="submit" value="Write" class="btn btn-default btn-large"></td></tr>
     </form>
 </table>
+</body>
 
-{% endblock %}
+</html>
+

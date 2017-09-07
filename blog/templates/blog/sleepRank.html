@@ -1,0 +1,80 @@
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register fityou</title>
+    {% load staticfiles %}
+    <!--<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>-->
+    <script>
+    function cancel() {
+        location.href="/home";
+    }
+    </script>
+    <link rel="stylesheet" href="/static/css/table_style.css">
+    <!-- Bootstrap core CSS -->
+    
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+
+    </head>
+    <body>
+<div>
+<a href = "/fitcraft" class="btn btn-warning btn-large">
+     Home
+</a>
+<a href = "/rank" class="btn btn-warning btn-large">
+     Back
+</a>
+<table cellspacing=2 class="table">
+    <thead class="table-fill">
+    <tr>
+        <th class="text-left" style="width: 20%;text-align:center;">Rank</td>
+        <th class="text-left" style="width: 50%;text-align:center;">User Name</td>
+        <th class="text-left" style="width: 30%;text-align:center;">Fit sleep</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% if idList %}        
+            {% for i in idList %}
+                {% for j in sleepList %}
+                {% if forloop.counter == forloop.parentloop.counter %}
+            <tr>
+                    {% if forloop.counter == 1 %}
+                    <td class="text-left" style="width: 20%;text-align:center;" scope="row">{{ forloop.counter }}</td>
+                    <td style="width: 50%;text-align:center;" scope="row">♛ <b style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF">{{ i }}</b></td>
+                    <td style="width: 30%;text-align:center;" scope="row">{{ j }}</td>
+                    {% elif forloop.counter == 2 %}
+                    <td style="width: 20%;text-align:center;" scope="row">{{ forloop.counter }}</td>
+                    <td style="width: 50%;text-align:center;" scope="row"><b style="text-shadow: 0 0 3px #FF0000">{{ i }}</b></td>
+                    <td style="width: 30%;text-align:center;" scope="row">{{ j }}</td>
+                    {% elif forloop.counter == 3 %}
+                    <td style="width: 20%;text-align:center;" scope="row">{{ forloop.counter }}</td>
+                    <td style="width: 50%;text-align:center;" scope="row"><b style="text-shadow: 2px 2px 4px #000000">{{ i }}</b></td>
+                    <td style="width: 30%;text-align:center;" scope="row">{{ j }}</td>
+                    {% else %}
+                    <td style="width: 20%;text-align:center;" scope="row">{{ forloop.counter }}</td>
+                    <td style="width: 50%;text-align:center;" scope="row">{{ i }}</td>
+                    <td style="width: 30%;text-align:center;" scope="row">{{ j }}</td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+                {% endfor %}
+            {% endfor %}
+    <tbody>
+    {% else %}
+        <p>No Data.</p>
+    {% endif %}
+</table>
+<!--<a href = "/fitapp/home" class="btn btn-warning btn-large">
+     Home
+</a>-->
+
+</div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+ 
+</body>
+
+</html>
+
+

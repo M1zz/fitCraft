@@ -1,10 +1,34 @@
-{% extends "admin_base.html"%}
-
-{% block content %}
-    <br>
-    <h2>Register</h2>
-    <form action = "register" method = "post">{% csrf_token%}
-        {{form}}
-        <input type = "submit" value = "Register" class="btn btn-primary btn-large"/>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register fityou</title>
+    {% load staticfiles %}
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <script>
+    function cancel() {
+        location.href="/register";
+    }
+    </script>
+    <link rel="stylesheet" href="/static/css/login_style.css">
+    <!-- Bootstrap core CSS -->
+    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    </head>
+    <body>
+    <form action = "register" method = "post" class="col-xs-3">{% csrf_token%}
+    <div class="login-form">
+        <h1>Register</h1>
+        <div class="form-group ">
+        {{form.as_p}}
+        <div>
+        <input type = "submit" value = "Register" class="log-btn"/><p></p>
+        <input type="button" class="log-btn" value="Cancel" onclick="cancel();" />
+    </div>        
     </form>
-{% endblock %}
+   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+   <script src="/static/js/login_index.js"></script>
+
+</body>
+
+</html>

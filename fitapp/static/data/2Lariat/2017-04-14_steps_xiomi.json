@@ -1,0 +1,1 @@
+{"bucket": [{"startTimeMillis": "1492128000000", "endTimeMillis": "1492214399000", "dataset": [{"dataSourceId": "derived:com.google.step_count.delta:com.google.android.gms:aggregated", "point": []}]}]}

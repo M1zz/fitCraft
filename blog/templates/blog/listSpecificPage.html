@@ -1,7 +1,16 @@
-{% extends "admin_base.html"%}
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free board</title>
+{% load staticfiles %}
+<link rel="stylesheet" href="/static/css/table_style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-{% block content %}
 
+    </head>
+    <body>
 <table cellspacing=1 width=700 class="table">
     <tr>
         <td>총 게시물수: {{ totalCnt }}</td>
@@ -11,18 +20,15 @@
 </table>
 
 <table cellspacing=1 width=700 class="table" style="font-family:'sans serif'">
+    <thead class="table-fill">
     <tr>
-        <td width=50><p align=center>번호</p>
-        </td>
-        <td width=100><p align=center>이름</p>
-        </td>
-        <td width=320><p align=center>제목</p>
-        </td>
-        <td width=100><p align=center>등록일</p>
-        </td>
-        <td width=100><p align=center>조회수</p>
-        </td>
+        <th width=50><p align=center>번호</p></th>
+        <th width=100><p align=center>이름</p></th>
+        <th width=320><p align=center>제목</p></th>
+        <th width=100><p align=center>등록일</p></th>
+        <th width=100><p align=center>조회수</p></th>
     </tr>
+    </thead>
 
     {% if boardList %}
         <ul>
@@ -69,7 +75,7 @@
 <table width=700 class="table">
     <tr>
         <td><input type=button value="글쓰기"  OnClick="window.location='/show_write_form'" class="btn btn-primary btn-large">
-             <a href = "/home" class="btn btn-primary btn-large">
+             <a href = "/fitcraft" class="btn btn-primary btn-large">
                  Home
              </a>
         </td>
@@ -79,4 +85,7 @@
         </td>
     </tr>
 </table>
-{% endblock %}
+</body>
+
+</html>
+

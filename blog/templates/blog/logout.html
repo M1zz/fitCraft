@@ -1,7 +1,15 @@
-{% extends "admin_base.html" %}
-
-{% block content %}
+<html>
+    <head>
+        <script>
+        function myFunction() {
+            alert("logged out!");
+            location.href="/fitcraft";
+        }
+        </script>
+    </head>
+    <body onload="myFunction()">
     <br>
+<!--
     <h2>Logged out!</h2>
     <a href = "/login" class="btn btn-primary btn-large">
         Login
@@ -9,4 +17,6 @@
     <a href = "/home" class="btn btn-primary btn-large">
         Home
     </a>
-{% endblock %}
+-->
+    </body>
+</html>

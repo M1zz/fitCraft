@@ -35,7 +35,8 @@ def is_integrated(user):
 
     :param user: A Django User.
     """
-    if user.is_authenticated() and user.is_active:
+    #if user.is_authenticated() and user.is_active:
+    if user.is_active:
         return UserFitbit.objects.filter(user=user).exists()
     return False
 
@@ -63,19 +64,42 @@ def get_fitbit_data(fbuser, resource_type, base_date=None, period=None,
         HTTPBadRequest      - >=400 - Bad request.
     """
     fb = create_fitbit(**fbuser.get_user_data())
-    resource_path = resource_type.path()
-    data = fb.time_series(resource_path, user_id=fbuser.fitbit_user,
+    # origin resource_path = resource_type.path(),fb
+    #resource_path = "activities/steps"
+    print "resource_path : ",resource_type
+    #data = fb.time_series(resource_path, user_id=fbuser.fitbit_user,
+    #                      period=period, base_date=base_date,
+    #                      end_date=end_date)
+    
+    if (resource_type == "activities/steps"):
+        data = fb.intraday_time_series(resource_type,
+                                  detail_level='1min', base_date=base_date,
+                                  start_time=None,end_time=None)
+    elif (resource_type == "activities/heart"):
+        data = fb.intraday_time_series(resource_type,
+                                  detail_level='1min', base_date=base_date,
+                                  start_time=None,end_time=None)
+    else :
+        data = fb.time_series(resource_type, user_id=fbuser.fitbit_user,
                           period=period, base_date=base_date,
                           end_date=end_date)
-
+    #print data
+    ####original data = fb.time_series(resource_type, user_id=fbuser.fitbit_user,period=period, base_date=base_date,end_date=end_date)
+    #print "***look at***"
+    #print "resource_path : ",resource_path
+    #print "base_date : ",base_date
+    #print "intra_data : ",data
+    
     # Update the token if necessary. We are making sure we have a valid
     # access_token and refresh_token next time we request Fitbit data
     if fb.client.token['access_token'] != fbuser.access_token:
         fbuser.access_token = fb.client.token['access_token']
         fbuser.refresh_token = fb.client.token['refresh_token']
         fbuser.save()
-    return data[resource_path.replace('/', '-')]
 
+    #print "intra_data : ",data
+    return data
+    #return data
 
 def get_setting(name, use_defaults=True):
     """Retrieves the specified setting from the settings file.

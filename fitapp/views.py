@@ -3,10 +3,12 @@ import os
 import datetime
 #from datetime import date, timedelta
 
+# added
+from django.contrib import auth
+
 from django.db import models
 from blog.models import Profile
 #import fitbit
-
 from dateutil import parser
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
@@ -51,21 +53,26 @@ def login(request):
     next_url = request.GET.get('next', None)
     # check the url
     print "next_url : ",next_url
-
+    # userless
+    """
     if next_url:
         request.session['fitbit_next'] = next_url
     else:
         request.session.pop('fitbit_next', None)
+    """
 
-    callback_uri = request.build_absolute_uri(reverse('fitbit-complete'))
+    #callback_uri = request.build_absolute_uri(reverse('fitbit-complete'))
+    callback_uri = "http://fityou.xyz/fitapp/complete/"
     fb = utils.create_fitbit(callback_uri=callback_uri)
     token_url, code = fb.client.authorize_token_url(redirect_uri=callback_uri)
     
     #complete
-    print "callback_uri : ",callback_uri
-    print "fb : ",fb
-    print "token_url : ",token_url
-
+    if (callback_uri == "http://www.fityou.xyz/fitapp/complete/"):
+        callback_uri = "http://fityou.xyz/fitapp/complete/"
+        print "modified_callback_uri : ",callback_uri
+    #print "token_url : ",token_url
+    
+    print "redirect"
     return redirect(token_url)
 
 
@@ -107,12 +114,14 @@ def complete(request):
         print "access_token : ",access_token
         print "fitbit_user : ",fitbit_user
     except KeyError:
-        print "1"
+        print "fitbit-error"
         return redirect(reverse('fitbit-error'))
 
     if UserFitbit.objects.filter(fitbit_user=fitbit_user).exists():
-        print "2"
-        return redirect(reverse('fitbit-exist'))
+        # if exist update
+        UserFitbit.objects.filter(fitbit_user=fitbit_user).update(access_token = access_token)
+        print "fitbit-exist"
+        return redirect(reverse('fitbit-today-steps'))
 
     fbuser, _ = UserFitbit.objects.get_or_create(user=request.user)
     fbuser.access_token = access_token
@@ -162,7 +171,25 @@ def exist(request):
     return render(request, 'fitapp/exist.html', {}) 
 
 def home(request):
-    return render(request, 'fitapp/home.html', {})
+    return render(request, 'fitapp/home_admin.html', {})
+
+def howto(request):
+    return render(request, 'fitapp/howto.html', {})
+
+def fitbit(request):
+    return render(request, 'fitapp/fitbit.html', {})
+
+def xiaomi(request):
+    return render(request, 'fitapp/xiaomi.html', {})
+
+def googlefit(request):
+    return render(request, 'fitapp/googlefit.html', {})
+
+def item(request):
+    return render(request, 'fitapp/item.html', {})
+
+def worklog(request):
+    return render(request, 'fitapp/work_log.html', {})
 
 @login_required
 def error(request):
@@ -243,6 +270,7 @@ def update(request):
     # The updates can come in two ways:
     # 1. A json body in a POST request
     # 2. A json file in a form POST
+    print "Update user data!"
     if request.method == 'POST':
         try:
             body = request.body
@@ -360,6 +388,182 @@ def get_steps(request):
     return get_data(request, 'activities', 'steps')
 
 @require_GET
+def all_get_today_steps(request):
+    
+    update_total_step = 0
+    update_total_fitPoint = 0    
+    #print "object : ",Profile._meta.get_all_field_names()
+    #print Profile.objects.values('id') , len(Profile.objects.values('id'))
+    #print Profile.objects.values('id')[0]
+    
+
+    print "object : ",UserFitbit._meta.get_all_field_names()
+    #print UserFitbit.objects.values('id')
+    #print UserFitbit.objects.values('user')
+    #print UserFitbit.objects.values('user_id')
+    #print UserFitbit.objects.values('fitbit_user')
+    #print UserFitbit.objects.values('user_id')[0].values()
+    #print UserFitbit.objects.get(user_id = fit_user_id)
+  
+    user_list = UserFitbit.objects.values('user_id')
+    user_id = []
+    #for name in 
+
+    print user_list
+ 
+    for user in user_list:
+        user_id.append(user.values()[0])
+
+    print "name : ",user_id
+
+    for user in user_id:
+        print user
+
+        #TODO set the User and Id
+        fit_user_id = user
+        user = UserFitbit.objects.get(user_id = fit_user_id)
+        fitbit_id = UserFitbit.objects.values('fitbit_user')[0].values()[0]
+        print "update all id : ",user,fit_user_id
+
+        #TODO set the date
+        # Search from database
+        old_fitPoint = 0
+        fit_profile = Profile.objects.get(user_id = fit_user_id)
+        old_fitPoint = fit_profile.fitPoint
+        old_sync_date = fit_profile.last_sync_date
+        print "old_fitPoint : ",old_fitPoint,old_sync_date
+    
+        # calculate and set yesterday
+        today       = datetime.date.today()
+        yesterday   = today - datetime.timedelta(1)
+        yesterday   = yesterday.strftime('%Y-%m-%d')
+
+        # setting the searching date
+        base_date   = old_sync_date
+        period      = request.GET.get('period', None)
+        end_date    = yesterday
+        print "base_date : ",base_date
+        print "yesterday : ",yesterday
+        # last sycn , yesterday to sync all data from last sync date
+
+        fbuser = UserFitbit.objects.get(user=fit_user_id)
+        fitbit_user = fbuser.fitbit_user
+        access_token = fbuser.access_token
+        print "fitbit_user_id : ",fitbit_user
+
+        if UserFitbit.objects.filter(fitbit_user=fitbit_user).exists():
+            # if exist update
+            UserFitbit.objects.filter(fitbit_user=fitbit_user).update(access_token = access_token)
+            print "fitbit-exist"
+
+        #TODO set the storage directory
+        directory = "./fitapp/static/data/"+str(user)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+
+        #TODO set the resource and get the data
+        while str(base_date) != str(yesterday)+" 00:00:00+00:00":
+####
+            # Load old data
+            fit_profile = Profile.objects.get(user_id = fit_user_id)
+            old_fitPoint = fit_profile.fitPoint
+            old_fitHeart = fit_profile.fitHeart
+            old_fitSleep = fit_profile.fitSleep
+
+
+            print "what? : ",user 
+            # get step data ################
+            health_step = get_today_data_auto(fit_user_id, 'activities', 'steps',base_date)
+            health_step = str(health_step).split('\n')[2]
+            today_step_data = json.loads(health_step)
+
+            # store the step_data ex) 2016-11-22_steps.json
+            name = directory+"/"+str(base_date)[:10]+"_"+"steps"+".json"
+            f = open(name, 'w')
+            f.write(health_step)
+            f.close()
+
+            # get heart data ################
+            health_heart = get_today_data_auto(fit_user_id, 'activities', 'heart',base_date)
+            health_heart = str(health_heart).split('\n')[2]
+            today_heart_data = json.loads(health_heart)
+
+            # store the step_data ex) 2016-11-22_heart.json
+            name = directory+"/"+str(base_date)[:10]+"_"+"heart"+".json"
+            f = open(name, 'w')
+            f.write(health_heart)
+            f.close()
+
+            # store the sleep_data
+            health_sleep = get_today_data_auto(fit_user_id, 'activities', 'sleep',base_date)
+            health_sleep = str(health_sleep).split('\n')[2]
+            today_sleep_data = json.loads(health_sleep)
+            print today_sleep_data
+
+            # store the sleep_data ex) 2016-11-22_sleep.json
+            name = directory+"/"+str(base_date)[:10]+"_"+"sleep"+".json"
+            f = open(name, 'w')
+            f.write(health_sleep)
+            f.close()
+
+            # Get Step and check null point exception
+            try:
+                result = today_step_data['objects']['activities-steps'][0]['value']
+                print "result : ",result
+            except:
+                #return render(request,'fitapp/need_to_sync.html',{})
+                result = 0
+                pass
+
+            # Get Heart and check null point exception
+            try:
+                heartResult = today_heart_data['objects']['activities-heart'][0]['value']['heartRateZones'][1]['minutes']
+                print "fitHeart : ",heartResult
+            except:
+                heartResult = 0
+                pass
+
+            # Get Sleep and check null point exception
+            try:
+                sleepResult = today_sleep_data['objects']['sleep'][0]['timeInBed']
+                print "fitSleep : ",sleepResult
+            except:
+                sleepResult = 0
+                pass
+
+            # total step
+            update_total_step = int(result) + update_total_step
+
+            # Calculate fitpoint  
+            fitPoint = int(result)/500
+            update_total_fitPoint += fitPoint
+
+            # Calculate fitHeart
+            fitHeart = int(heartResult)/15
+
+            # Calculate fitSleep
+            fitSleep = int(sleepResult)/15
+
+            Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = base_date)
+            Profile.objects.filter(user_id=fit_user_id).update(fitPoint = old_fitPoint + fitPoint)
+            Profile.objects.filter(user_id=fit_user_id).update(fitSleep = old_fitSleep + fitSleep)
+            Profile.objects.filter(user_id=fit_user_id).update(fitHeart = old_fitHeart + fitPoint)
+            # increase a day
+            base_date = base_date + datetime.timedelta(days=1)
+            print "inceased date : ",base_date
+        Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = yesterday)
+####
+    return render(request, 'fitapp/sync_done.html', {'fitpoint':update_total_fitPoint})
+
+    #TODO if token is expired refresh
+
+    #TODO save the data
+
+
+
+# Now Use This
+@require_GET
 def get_today_steps(request):
     """An AJAX view that retrieves this user's step data from Fitbit.
 
@@ -368,156 +572,439 @@ def get_today_steps(request):
     URL name:
         `fitbit-steps`
     """
-    # save step data
+
+    # Check the directory is exist 
     user = str(request.user)
+    print "user!!! : ",user,type(user)
     directory = "./fitapp/static/data/"+user
     if not os.path.exists(directory):
         os.makedirs(directory)
 
     # setting user id
     fit_user_id = request.user.id
-    print "user_id : ",fit_user_id
+    print "user!!! : ",fit_user_id,type(fit_user_id)
 
-    # select from database
+    # Search from database
     old_fitPoint = 0
     fit_profile = Profile.objects.get(user_id = fit_user_id)
     old_fitPoint = fit_profile.fitPoint
     old_sync_date = fit_profile.last_sync_date
 
-    # calculate yesterday
+    # calculate and set yesterday
     today 	= datetime.date.today()
     yesterday 	= today - datetime.timedelta(1)
+    # for the Demo
+    yesterday   = today + datetime.timedelta(1)
     yesterday	= yesterday.strftime('%Y-%m-%d')
-    #nowDate 	= now.strftime('%Y-%m-%d')
 
-    
-    print "old_fitPoint : ",old_fitPoint
-    print "old_sync_date : ",old_sync_date
-    print "Compare_data : ",str(yesterday)+" 00:00:00+00:00"   
+    # for debug 
+    # print "old_fitPoint : ",old_fitPoint
+    # print "old_sync_date : ",old_sync_date
+    # print "Compare_data : ",str(yesterday)+" 00:00:00+00:00"   
  
     # setting the searching date
     base_date 	= old_sync_date
     period 	= request.GET.get('period', None)
     end_date 	= yesterday
-    print "base_date : ",base_date
+    # print "base_date : ",base_date
     
     # last sycn , yesterday to sync all data from last sync date
     
-    # will be deleted
-    # get step data
-    #health_step = get_today_data(base_date, 'activities', 'steps')
-    #health_step = str(health_step).split('\n')[2]
-    #today_step_data = json.loads(health_step)
-    #print "today_step_data : ",today_step_data
-    #result = today_step_data['objects'][0]['value']
-    #print "result : ",result 
-
-    # calculate fitpoint  
-    #fitPoint = int(result)/500
-    #print "fitPoint : ",fitPoint
-
-    # file writing
-    #name = directory+"/"+user+"_"+str(base_date)+"_"+str(end_date)+".json"
-    #f = open(name, 'w')
-    #f.write(health_step)
-    #f.close()
-
-    # directory , read_filename
-    #extract_daily_step(directory, name)
-    #yesterday = base_date - datetime.timedelta(days=3)
-    #Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = yesterday)
-    #return 0
     update_total_step = 0
+    total_step = 0
     update_total_fitPoint = 0
+    total_sleep = 0
+    total_heart = 0
+    result_total = 0
 
-    #if (str(base_date) == str(yesterday)+" 00:00:00+00:00"):
-        # update fitPoint
-    #    Profile.objects.filter(user_id=fit_user_id).update(fitPoint = old_fitPoint + fitPoint)
-    #    print "Updated fitPoint : ",old_fitPoint + fitPoint
-    #    Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = yesterday)
-    #    print "date : ",base_date
+    # for debug
+    #print "DEBUG START POINT1"
+    #fbuser = UserFitbit.objects.get(user=user)
+    
+    #print "Debug print"
+    #health_step = get_today_data(request, 'activities', 'steps',base_date)
+    #health_heart = get_today_data(request, 'activities', 'heart',base_date)
+    #health_sleep = get_today_data(request, 'activities', 'sleep',base_date)
+
+    #health_step = str(health_step).split('\n')[2]
+    #print "DEBUG-health_step1 : ",health_step
+
+    #health_heart = str(health_heart).split('\n')[2]
+    #print "DEBUG-health_heart1 : ",health_heart 
+
+    #health_sleep = str(health_sleep).split('\n')[2]
+    #print "DEBUG-health_sleep1 : ",health_sleep
 
     # compare and sync
-    print str(base_date),str(yesterday)+" 00:00:00+00:00"
+    print "basedate: ",str(base_date),"yesterday : ",str(yesterday)+" 00:00:00+00:00"
     while str(base_date) != str(yesterday)+" 00:00:00+00:00":
-        # get step data
-        print "get data!"
+ 
+        # Load old data
+        fit_profile = Profile.objects.get(user_id = fit_user_id)
+        old_fitPoint = fit_profile.fitPoint
+        old_fitHeart = fit_profile.fitHeart
+        old_fitSleep = fit_profile.fitSleep
+
+        # get step data ################
         health_step = get_today_data(request, 'activities', 'steps',base_date)
         health_step = str(health_step).split('\n')[2]
         today_step_data = json.loads(health_step)
-        print "today_step_data : ",today_step_data
 
-        # result null exception
-        try:
-            result = today_step_data['objects'][0]['value']
-        except:
-            return render(request,'fitapp/sync_error.html',{})
-        if result == '0':
-            return render(request,'fitapp/sync_error.html',{})
-            print "Need to sync"
+        # store the step_data ex) 2016-11-22_steps.json
+        name = directory+"/"+str(base_date)[:10]+"_"+"steps"+".json"
+        f = open(name, 'w')
+        f.write(health_step)
+        f.close()
+ 
+        # get heart data ################
+        health_heart = get_today_data(request, 'activities', 'heart',base_date)
+        health_heart = str(health_heart).split('\n')[2]
+        today_heart_data = json.loads(health_heart)
 
-        update_total_step = int(result) + update_total_step
-        print "result : ",result
-        print "update_total_step : ",update_total_step
-
-        # calculate fitpoint  
-        fitPoint = int(result)/500
-        update_total_fitPoint = update_total_fitPoint + fitPoint
-        print "fitPoint : ",fitPoint
+        # store the step_data ex) 2016-11-22_heart.json
+        name = directory+"/"+str(base_date)[:10]+"_"+"heart"+".json"
+        f = open(name, 'w')
+        f.write(health_heart)
+        f.close()
         
-        # increase date
-        base_date = base_date + datetime.timedelta(days=1)
-        print "date : ",base_date,str(yesterday)+" 00:00:00+00:00"
+        # store the sleep_data
+        health_sleep = get_today_data(request, 'activities', 'sleep',base_date) 
+        health_sleep = str(health_sleep).split('\n')[2]
+        today_sleep_data = json.loads(health_sleep)
+        print today_sleep_data
 
-    print "Sync done!"
-    
+        # store the sleep_data ex) 2016-11-22_sleep.json
+        name = directory+"/"+str(base_date)[:10]+"_"+"sleep"+".json"
+        f = open(name, 'w')
+        f.write(health_sleep)
+        f.close()
+        
+         
+        # Get Step and check null point exception
+        try:
+            result = today_step_data['objects']['activities-steps'][0]['value']
+            print "result : ",result
+        except:
+            #return render(request,'fitapp/need_to_sync.html',{})
+            result = 0
+            pass
+
+	# Get Heart and check null point exception
+        try:
+            heartResult = today_heart_data['objects']['activities-heart'][0]['value']['heartRateZones'][1]['minutes']
+            print "fitHeart : ",heartResult
+        except:
+            heartResult = 0
+            pass
+
+	# Get Sleep and check null point exception
+        try:
+            sleepResult = today_sleep_data['objects']['sleep'][0]['timeInBed']
+            print "fitSleep : ",sleepResult
+        except:
+            sleepResult = 0
+            pass
+ 
+        # total step
+        update_total_step = int(result) + update_total_step
+        total_step += int(result)
+        # Calculate fitpoint  
+        fitPoint = int(result)/500
+        update_total_fitPoint += fitPoint
+        
+	# Calculate fitHeart
+        fitHeart = int(heartResult)/15
+        total_heart = fitHeart + total_heart
+	# Calculate fitSleep
+        fitSleep = int(sleepResult)/15
+        total_sleep = fitSleep + total_sleep
+
+        Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = base_date)
+        Profile.objects.filter(user_id=fit_user_id).update(fitPoint = old_fitPoint + fitPoint)
+        Profile.objects.filter(user_id=fit_user_id).update(fitSleep = old_fitSleep + fitSleep)
+        Profile.objects.filter(user_id=fit_user_id).update(fitHeart = old_fitHeart + fitPoint)
+        # increase a day
+        base_date = base_date + datetime.timedelta(days=1)
+        print "inceased date : ",base_date
+
+    # print "Sync done!"
+    """
+##############
+    temp_date = "2017-01-13 00:00:00+00:00"
+    temp_date = datetime.datetime.strptime(temp_date, "%Y-%m-%d %H:%M:%S+%f:00")
+    basic_date = "2017-02-04 00:00:00+00:00"
+    basic_date = datetime.datetime.strptime(basic_date, "%Y-%m-%d %H:%M:%S+%f:00")
+
+    while str(basic_date) != str(temp_date):
+        print "temp_date updated! : ",temp_date
+        # get step data ################
+        # print "get data!"
+        # get activities steps
+
+           
+        health_step = get_today_data(request, 'activities', 'steps',temp_date)
+        health_step = str(health_step).split('\n')[2]
+        today_step_data = json.loads(health_step)
+        print "today_step_data : ",today_step_data
+        
+        # store the step_data
+        name = directory+"/"+str(temp_date)[:10]+"_"+"steps"+".json"
+        f = open(name, 'w')
+        f.write(health_step)
+        f.close()
+        
+        
+        # get heart data ################
+        # print "get data!"
+        # get activities steps
+        health_heart = get_today_data(request, 'activities', 'heart',temp_date)
+        health_heart = str(health_heart).split('\n')[2]
+        today_heart_data = json.loads(health_heart)
+
+        name = directory+"/"+str(temp_date)[:10]+"_"+"heart"+".json"
+        f = open(name, 'w')
+        f.write(health_heart)
+        f.close()
+        
+        
+        
+        # store the sleep_data
+        health_sleep = get_today_data(request, 'activities', 'sleep',temp_date)
+        health_sleep = str(health_sleep).split('\n')[2]
+        today_sleep_data = json.loads(health_sleep)
+
+        name = directory+"/"+str(temp_date)[:10]+"_"+"sleep"+".json"
+        f = open(name, 'w')
+        f.close()
+        
+        temp_date = temp_date + datetime.timedelta(days=1)
+
+##############
+    """
+    print "THIS IS WORKING!",yesterday
     if update_total_step == 0:
         print "nothing to sync!"
-        return render(request,'fitapp/sync_error.html',{})
-
+        return render(request,'fitapp/sync_nodata.html',{})
     print "************* start update ***************"
-    Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = base_date)
-    Profile.objects.filter(user_id=fit_user_id).update(fitPoint = old_fitPoint + update_total_fitPoint)
+    print "Step Point : ",update_total_fitPoint
+    print "Sleep Point : ",total_sleep
+    print "Heart point : ",total_heart
+    Profile.objects.filter(user_id=fit_user_id).update(last_sync_date = yesterday)
+    #Profile.objects.filter(user_id=fit_user_id).update(fitPoint = old_fitPoint + update_total_fitPoint)
 
-    #else:
-    #    print "You already get reward!!!!"
-    #    return make_response(100,"error")
+    return render(request, 'fitapp/sync_done.html', {'fitpoint':update_total_fitPoint,'step':total_step})
+
+@require_GET
+def get_point(request,user_id,password,point):
+    #user = request.user
+    # 200 - success to get point
+    # 400 - fail to get point
+    # login
+    user = auth.authenticate(username=user_id, password=password)
+    print user_id,password,point
+
+    # authed
+    if user is not None:
+        # give point and modify
+        fit_profile = Profile.objects.get(user_id = user)
+        old_fitPoint = fit_profile.fitPoint
+        update_total_fitPoint = int(old_fitPoint) - int(point)
+        if update_total_fitPoint < 0:
+            return HttpResponse("400")
+        Profile.objects.filter(user_id=user).update(fitPoint = update_total_fitPoint)
+    else:
+        return HttpResponse("400")
+
+    return HttpResponse("200")
+
+@require_GET
+def get_sleep(request,user_id,password,point):
+    #user = request.user
+    # 200 - success to get point
+    # 400 - fail to get point
+    # login
+    user = auth.authenticate(username=user_id, password=password)
+    print user_id,password,point,user
+
+    # authed
+    if user is not None:
+        # give point and modify
+        print "work"
+        fit_profile = Profile.objects.get(user_id = user)
+        print fit_profile.user_id,fit_profile.fitSleep
+        old_fitSleep = fit_profile.fitSleep
+        update_total_fitSleep = int(old_fitSleep) - int(point)
+        if update_total_fitSleep < 0:
+            return HttpResponse("400")
+        Profile.objects.filter(user_id=user).update(fitSleep = update_total_fitSleep)
+        print old_fitSleep,update_total_fitSleep,point
+    else:
+        return HttpResponse("400")
+
+    return HttpResponse("200")
+
+@require_GET
+def get_heart(request,user_id,password,point):
+    #user = request.user
+    # 200 - success to get point
+    # 400 - fail to get point
+    # login
+    user = auth.authenticate(username=user_id, password=password)
+    print user_id,password,point
+
+    # authed
+    if user is not None:
+        # give point and modify
+        fit_profile = Profile.objects.get(user_id = user)
+        old_fitHeart = fit_profile.fitHeart
+        update_total_fitHeart = int(old_fitHeart) - int(point)
+        if update_total_fitHeart < 0:
+            return HttpResponse("400")
+        Profile.objects.filter(user_id=user).update(fitHeart = update_total_fitHeart)
+    else:
+        return HttpResponse("400")
+
+    return HttpResponse("200")
+
+def get_today_data_auto(user, category, resource, base_date):
+    # Manually check that user is logged in and integrated with Fitbit.
+    # 1. insert user
+    print "name : ",user,"get_date : ",base_date, "category : ",category+"/"+resource
     
-    return render(request, 'fitapp/sync_done.html', {'fitpoint':update_total_fitPoint})
-    #return make_response(100,result)
+    # 2. calculate present time
+    today       = datetime.date.today()
+    yesterday   = today - datetime.timedelta(1)
+    yesterday   = yesterday.strftime('%Y-%m-%d')
+    print "TimeSeriesDataType : ",TimeSeriesDataType
+    try:
+        print "resource_type : ",category,resource
+        if resource == "sleep":
+            resource_type = resource
+        else:
+            resource_type = category+"/"+resource
+        #resource_type = TimeSeriesDataType.objects.get(
+        #    category=getattr(TimeSeriesDataType, category), resource=resource)
+    except:
+        return make_response(104)
+    print "\n"
+    fitapp_subscribe = utils.get_setting('FITAPP_SUBSCRIBE')
+
+    # auth option
+    #if not user.is_authenticated() or not user.is_active:
+    #    return make_response(101)
+
+    #### coution! you have to recover
+    #if not fitapp_subscribe and not utils.is_integrated(user):
+    #    return make_response(102)
+    ####
+
+
+    #base_date = request.GET.get('base_date', None)
+
+    #base_date = yesterday
+    period = "None"
+    #end_date = yesterday
+    end_date = base_date
+    print "base_date : ",base_date,"period : ",period,"end_date : ",end_date
+
+    if period and not end_date:
+        form = forms.PeriodForm({'base_date': base_date, 'period': period})
+    elif end_date and period == "None":
+        form = forms.RangeForm({'base_date': base_date, 'end_date': end_date})
+        print "check today!"
+    else:
+        # Either end_date or period, but not both, must be specified.
+        print "no fitbit data!"
+        return make_response(104)
+
+    fitbit_data = form.get_fitbit_data()
+    print "fitbit_data : ",fitbit_data
+    if not fitbit_data:
+        print "no fitbit data!"
+        return make_response(104)
+    if fitapp_subscribe:
+        # Get the data directly from the database.
+        print "user",user,type(user),resource_type,type(resource_type)
+        date_range = 0
+        existing_data = TimeSeriesData.objects.filter(
+            user=user, resource_type=resource_type, **date_range)
+        print "**result** : ",existing_data
+        simplified_data = [{'value': d.value, 'dateTime': d.string_date()}
+                           for d in existing_data]
+        return make_response(100, fitbit_data)
+
+    # Request data through the API and handle related errors.
+    print "check user :" ,user
+    try:
+        fbuser = UserFitbit.objects.get(user=user)
+        data = utils.get_fitbit_data(fbuser, resource_type, **fitbit_data)
+        # for debug
+        # print "data : ",data
+    except (HTTPUnauthorized, HTTPForbidden):
+        # Delete invalid credentials.
+        fbuser.delete()
+        pass
+        return make_response(103)
+    except HTTPConflict:
+        pass
+        return make_response(105)
+    except HTTPServerError:
+        pass
+        return make_response(106)
+    except:
+        # Other documented exceptions include TypeError, ValueError,
+        # HTTPNotFound, and HTTPBadRequest. But they shouldn't occur, so we'll
+        # send a 500 and check it out.
+        pass
+        raise
+    #print "return data : ",data
+    return make_response(100, data)
+
 
 @require_GET
 def get_today_data(request, category, resource, base_date):
     # Manually check that user is logged in and integrated with Fitbit.
     # 1. insert user
     user = request.user
-    print "user : ",user,base_date
-    # calculate present time
+    print "user : ",user,"get_date : ",base_date, "category : ",category+"/"+resource
+
+    # 2. calculate present time
     today 	= datetime.date.today()
     yesterday   = today - datetime.timedelta(1)
     yesterday   = yesterday.strftime('%Y-%m-%d')
-
+    print "TimeSeriesDataType : ",TimeSeriesDataType
     try:
-        resource_type = TimeSeriesDataType.objects.get(
-            category=getattr(TimeSeriesDataType, category), resource=resource)
-        print "resource_type : ",resource_type
+        print "resource_type : ",category,resource
+        if resource == "sleep":
+            resource_type = resource
+        else:
+            resource_type = category+"/"+resource
+        #resource_type = TimeSeriesDataType.objects.get(
+        #    category=getattr(TimeSeriesDataType, category), resource=resource)
     except:
         return make_response(104)
-
+    print "\n"
     fitapp_subscribe = utils.get_setting('FITAPP_SUBSCRIBE')
-    if not user.is_authenticated() or not user.is_active:
-        return make_response(101)
-    if not fitapp_subscribe and not utils.is_integrated(user):
-        return make_response(102)
+    
+    # auth option
+    #if not user.is_authenticated() or not user.is_active:
+    #    return make_response(101)
+    
+    #### coution! you have to recover
+    #if not fitapp_subscribe and not utils.is_integrated(user):
+    #    return make_response(102)
+    ####
+
 
     #base_date = request.GET.get('base_date', None)
-    base_date = yesterday
-    print "base_date : ",base_date
+    
+    #base_date = yesterday
     period = request.GET.get('period', None)
     print "period : ",period
-    end_date = yesterday
+    #end_date = yesterday
+    end_date = base_date
     #end_date = request.GET.get('end_date', None)
-    print "end_date : ",end_date
+    print "base_date : ",base_date,"period : ",period,"end_date : ",end_date
 
     if period and not end_date:
         form = forms.PeriodForm({'base_date': base_date, 'period': period})
@@ -530,23 +1017,30 @@ def get_today_data(request, category, resource, base_date):
         return make_response(104)
 
     fitbit_data = form.get_fitbit_data()
+    print "fitbit_data : ",fitbit_data
     if not fitbit_data:
         print "no fitbit data!"
         return make_response(104)
-
     if fitapp_subscribe:
         # Get the data directly from the database.
+        print "user",user,type(user),resource_type,type(resource_type)
         date_range = normalize_date_range(request, fitbit_data)
+        print "data_range : ",data_range
         existing_data = TimeSeriesData.objects.filter(
             user=user, resource_type=resource_type, **date_range)
-        simplified_data = [{'value': d.value, 'dateTime': d.string_date()}
-                           for d in existing_data]
-        return make_response(100, simplified_data)
+        print "**result** : ",existing_data
+        #simplified_data = [{'value': d.value, 'dateTime': d.string_date()}
+                           #for d in existing_data]
+        return make_response(100, fitbit_data)
 
     # Request data through the API and handle related errors.
+    print "point : ",user
     fbuser = UserFitbit.objects.get(user=user)
+    print "fitbit_user_id : ",fbuser.fitbit_user
     try:
         data = utils.get_fitbit_data(fbuser, resource_type, **fitbit_data)
+        # for debug
+        # print "data : ",data
     except (HTTPUnauthorized, HTTPForbidden):
         # Delete invalid credentials.
         fbuser.delete()

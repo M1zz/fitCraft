@@ -1,11 +1,47 @@
-{% extends "admin_base.html"%}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login fitcraft</title>
+  {% load staticfiles %}
+  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 
-{% block content %}
-    {% if form.errors %}
-        <p class="error">Sorry That's not a valid username or password</p>
-    {% endif %}
-    <br>
-    <h2>Login</h2>
+    <script>
+    function cancel() {
+        location.href="/fitcraft";
+    }
+    </script>
+
+  <link rel="stylesheet" href="/static/css/login_style.css">
+</head>
+
+<body>
+  <form action = "auth" method = "post" class="col-xs-3">{% csrf_token%}
+  <div class="login-form">
+     <h1>FitCraftu</h1>
+     <div class="form-group ">
+       <input type="text" class="form-control" placeholder="Username" name="username" id="UserName" required>
+       <i class="fa fa-user"></i>
+     </div>
+     <!--<div class="form-group log-status">-->
+       <div class="form-group ">
+       <input type="password" class="form-control" placeholder="Password" name="password" id="Passwod" required>
+       <i class="fa fa-lock"></i>
+     </div>
+     <!--<span class="alert">Invalid Credentials</span>-->
+     <a class="link" href="#">Lost your password?</a>
+     <input type="submit" class="log-btn" value="Log in"/><p></p>
+     <input type="button" class="log-btn" value="Cancel" onclick="cancel();" />
+   </div>
+   </form>
+   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+   <script src="/static/js/login_index.js"></script>
+
+</body>
+</html>
+
+<!--
     <form action = "auth" method = "post" class="col-xs-3">{% csrf_token%}
         <label for = "username" >UserName : </label>
         <input type = "text" name="username" value ="" id = "username" class="form-control"></label>
@@ -17,5 +53,4 @@
         Cancel
         </a>
     </form>
-{% endblock %}
-
+-->

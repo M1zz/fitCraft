@@ -44,7 +44,6 @@ class TimeSeriesDataType(models.Model):
     )
     category = models.IntegerField(choices=CATEGORY_CHOICES)
     resource = models.CharField(max_length=128)
-
     def __str__(self):
         return self.path()
 

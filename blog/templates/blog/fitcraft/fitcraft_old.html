@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <title>Welcome to the Fitcraft!</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/fitcraft_bootstrap.css" rel="stylesheet">
+    <link href="/static/css/fitcraft_style.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/modernizr.js"></script>
+     
+</head>
+<body>
+<div class="preloader" id="preloader">
+    <div class="intro-text">Please wait</div>
+</div>
+<div class="content-container" id="content-container" style="display:none;">
+    <!-- SCENERY START -->
+    <div class="scenery">
+        <div class="clouds" id="clouds"></div>
+        <div class="mountains mountains3">
+            <div class="mountains mountains2">
+                <div class="mountains mountains1">
+                    <div class="beast beast_small" id="beast_small"></div>
+                    <div class="grass1">
+                        <div class="beast beast_big" id="beast_big"></div>
+                        <div class="bushes">
+                            <div class="bush1">
+                                <div class="bush2"></div>
+                            </div>
+                            <div class="grass2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FLOATBOX START -->
+        <div class="floatbox" id="floatbox">
+            <h1 class="logo"><img src="/static/img/Welcome-to-FITCRAFT.png" alt="fitcraft logo"></h1>
+
+            <!-- Header Content / Intro Area Start -->
+            <iframe src="http://fitcraft.site/" width="500" height="300">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
+
+            <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/2V1htar6XFA" frameborder="0" allowfullscreen></iframe>-->
+            <p>Now we connect real life with virtual game world!</p>
+            <p>Just join fitcraft.site and enjoy the game you can earn the reward based on your steps.</p>
+            <!-- Header Content / Intro Area Start  END -->
+            <!-- SOCIAL START -->
+            <!--<section class="social">
+                <p><span class="follow-text">Follow us</span>-->
+                    <!--<a href="https://twitter.com/PwegoCinema" class="twitter social-link"></a>-->
+                    <!--<a href="https://www.facebook.com/fitcraft2" class="facebook social-link"></a>
+                    <a href="#" class="youtube social-link"></a>
+                    <a href="http://sokulee.xyz" class="pmc social-link"></a>-->
+                    <!-- ADDITIONAL SOCIAL ICONS -->
+                    <!--
+                    <a href="#" class="amazon social-link"></a>
+                    <a href="#" class="android social-link"></a>
+                    <a href="#" class="apple social-link"></a>
+                    <a href="#" class="appstore social-link"></a>
+                    <a href="#" class="behance social-link"></a>
+                    <a href="#" class="blogger social-link"></a>
+                    <a href="#" class="delicious social-link"></a>
+                    <a href="#" class="deviantart social-link"></a>
+                    <a href="#" class="digg social-link"></a>
+                    <a href="#" class="dribbble social-link"></a>
+                    <a href="#" class="dropbox social-link"></a>
+                    <a href="#" class="ebay social-link"></a>
+                    <a href="#" class="facebook social-link"></a>
+                    <a href="#" class="flickr social-link"></a>
+                    <a href="#" class="forrst social-link"></a>
+                    <a href="#" class="google social-link"></a>
+                    <a href="#" class="googledisc social-link"></a>
+                    <a href="#" class="googleplus social-link"></a>
+                    <a href="#" class="hotmail social-link"></a>
+                    <a href="#" class="html5 social-link"></a>
+                    <a href="#" class="instagram social-link"></a>
+                    <a href="#" class="lastfm social-link"></a>
+                    <a href="#" class="linkedin social-link"></a>
+                    <a href="#" class="myspace social-link"></a>
+                    <a href="#" class="paypal social-link"></a>
+                    <a href="#" class="picasa social-link"></a>
+                    <a href="#" class="pinterest social-link"></a>
+                    <a href="#" class="rss social-link"></a>
+                    <a href="#" class="skype social-link"></a>
+                    <a href="#" class="soundcloud social-link"></a>
+                    <a href="#" class="stumbleupon social-link"></a>
+                    <a href="#" class="technorati social-link"></a>
+                    <a href="#" class="tumblr social-link"></a>
+                    <a href="#" class="twitter social-link"></a>
+                    <a href="#" class="vimeo social-link"></a>
+                    <a href="#" class="windows social-link"></a>
+                    <a href="#" class="wordpress social-link"></a>
+                    <a href="#" class="yahoo social-link"></a><br>
+		    <a href="#" class="youtube social-link"></a>
+                    -->
+               <!-- </p>
+            </section>-->
+            <!-- SOCIAL START -->
+        </div>
+        <!-- FLOATBOX END -->
+    </div>
+    <!-- SCENERY END -->
+
+    <!-- CONTENT START -->
+    <section class="content-area" id="content-area">
+        <div class="container">
+            <div class="row">
+                <!-- COLUMN 1 START (ABOUT US) -->
+                <section class="span8 content-section"><h2 class="section-title">What is FitCraft?</h2>
+                <a href = "/listSpecificPageWork?current_page=1" class="btn btn-warning">Fitcraft Board</a>
+                <a href = "/fitcraft/logs" class="btn btn-warning">Fitcraft Ranking</a>
+				<!--You can place ANY text or additional code in this section, this section of the website will hold the main content you wish
+                to share with your users. I Personally suggest leaving it as a NEWS section, you can add links, small images and more to 
+                this section, just make sure it looks okay when you publish and doesnt mess up the website template.-->
+                    <p>Server URL : fitcraft.site </p>
+                    <p>Server MAP : <a href ="http://fitcraft.site/">http://fitcraft.site/</a> </p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/2V1htar6XFA" frameborder="0" allowfullscreen></iframe>
+                    <!-- -------------------------------------------------
+                    The <hr> tag is what makes the white line between posts
+                    ------------------------------------------------------>
+                    <hr>
+                    <p><h3>서버 요약 및 진행방법</h3></p>
+                    <p>마인크래프트는 기본적으로 생존 게임이며 정해진 게임의 목표는 없습니다. 하지만 이 서버에서는 세가지의 다른 특징이 있습니다.(마인크래프트 팩션(길드전) + mcMMO(기술확장) + 피트니스 운동) 
+                    <ol>
+                        <li>첫 번째로는 운동을 마인크래프트의 아이템으로 바꿀 수 있습니다. 피트니스 밴드를 착용하
+시고 운동을 하면 기록됩니다. 동기화 한 후 서버에서 포인트를 받을 수 있습니다. 이 포인트는 게임에서 쓸 수 있는 화>폐로 바꿀 수 있습니다. 물론 화폐는 아이템을 살 수 있죠 </li>
+                        <li>두 번째로는 자신의 길드를 만들거나 길드에 가입하고 힘을키워 많은 영토를 차지하세요!</li>
+                        <li>세 번째로는 특정 행동은 캐릭터를 강하게 만들고 힘을 기릅니다. 예를 들면 많은 검의 사용은 검술 스킬을 강화 하며 검을 들고 우클릭으로 스킬을 사용하여 강력한 힘을 낼 수 있습니다.</li>
+                    </ol>
+                    </p><hr>
+                    
+                    <p><h4>초보들을 위한 마인크래프트 배우기</h4></p>
+                    <ol>
+                        <li>마인크래프 시작하기 - <a href="http://leeo75.tistory.com/5">(1) 화면설명 - http://leeo75.tistory.com/5</a></li>
+                        <li>마인크래프 시작하기 - <a href="http://leeo75.tistory.com/5">(2) 크래프팅 - http://leeo75.tistory.com/6</a></li>
+                        <li>크래프팅 정보링크 - <a href="http://minecraft-ko.gamepedia.com/%EC%A0%9C%EC%9E%91">http://minecraft-ko.gamepedia.com/%EC%A0%9C%EC%9E%91</a></li>
+                    </ol>
+                    <hr>
+                    
+                    <p><h4>운동할래 게임할래? 일상생활이 게임이 된다! FitCraft 배우기</h4></p>
+                    <ol>
+                        <li>피트크래프 시작하기 - <a href="http://leeo75.tistory.com/7">(1) 계정 생성 및 동기화 후 포인트 받기</a></li>
+                        <li>피트크래프 시작하기 - <a href="http://leeo75.tistory.com/8">(2) 피트코인 받기 및 활용</a></li>
+                    </ol>
+                    <hr>
+
+                    <p><h4>포함된 플러그인</h3></p>
+					
+                    <li>AuthMe-5.2-SNAPSHOT-legacy.jar</li>
+                    <li>AutoSaveWorld.jar</li>
+                    <li>CoreProtect_2.14.2.jar</li>
+                    <li>dynmap-2.3.jar</li>
+                    <li>EssentialsX-2.0.1.jar</li>
+                    <li>PermissionsEx-1.23.4.jar</li>
+                    <li>fitcraft.jar</li>
+                    <li>Shopkeepers.jar</li>
+                    <li>levelhealth.jar</li>
+                    <li>PermissionsEx-1.23.4.jar</li>
+                    <li>Regios.jar</li>
+                </section>
+                <!-- COLUMN 1 END (ABOUT US)-->
+
+
+                <!-- COLUMN 2 START (SCREENSHOTS) -->
+                <section class="span4 content-section"><h2 class="section-title">Screenshots</h2>
+                    <div class="thumbnails-holder">
+                        <!-- THUMBS START -->
+                        <div class="thumb" title="Image 1 description">
+                            <a href="/static/images/1.jpg" data-rel="prettyPhoto[gal]"><img src="/static/images/thumbs/1.jpg" alt="Image 1 title"></a>
+                        </div>
+                        <div class="thumb" title="Image 2 description">
+                            <a href="/static/images/2.jpg" data-rel="prettyPhoto[gal]"><img src="/static/images/thumbs/2.jpg" alt="Image 2 title"></a>
+                        </div>
+                        <div class="thumb" title="Image 3 description">
+                            <a href="/static/images/3.jpg" data-rel="prettyPhoto[gal]"><img src="/static/images/thumbs/3.jpg" alt="Image 3 title"></a>
+                        </div>
+                        <div class="thumb" title="Image 4 description">
+                            <a href="/static/images/4.jpg" data-rel="prettyPhoto[gal]"><img src="/static/images/thumbs/4.jpg" alt="Image 4 title"></a>
+                        </div>
+                        <div class="thumb" title="Image 5 description">
+                            <a href="/static/images/5.jpg" data-rel="prettyPhoto[gal]"><img src="/static/images/thumbs/5.png" alt="Image 5 title"></a>
+                        </div>
+                        <div class="thumb" title="Image 6 description">
+                            <a href="/static/images/6.jpg" data-rel="prettyPhoto[gal]"><img src="/static/images/thumbs/6.png" alt="Image 6 title"></a>
+                        </div>
+                        <!-- THUMBS END -->
+                    </div><!-- .thumbnails-holder --><!--
+                    <h2 class="section-title">Latest tweets</h2>
+                    <a class="twitter-timeline" href="https://www.facebook.com/fitcraft2" data-widget-id="345699752651931648">Tweets by @PwegoCinema</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
+
+                </section>
+                <!-- COLUMN 2 END (SCREENSHOTS) -->
+            </div>
+            <!-- .row -->
+        </div>
+        <!-- .container -->
+    </section>
+    <!-- CONTENT END-->
+    <!-- FOOTER START -->
+    <footer class="page-footer">
+        <div class="footer-top-bg"></div>
+        <div class="footer-content-wrapper">
+        <!----------------------------------------------------------------------------------- 
+        To use this Template you NEED TO KEEP the Designed By sycoinc link in the footer.
+        Without this in the footer i ask you do not use this template UNLESS HEAVILY EDITED.
+        Since this is a free Template this is all i ask when you use this.
+        ---------------------------------------------------------->
+            <div class="footer-content">
+                <!-- FOOTER CONTENT START -->
+                Server Name &copy; 2013 - Template Designed by <a href="http://www.minecraftwebsitetemplates.com">sycoinc</a>
+                <!-- FOOTER CONTENT END -->
+            </div>
+        </div>
+    </footer>
+    <!-- FOOTER END -->
+    <!-- SCRIPTS AND TECHICAL STUFF -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+    <script src="/static/js/jquery.countdown.min.js"></script>
+    <script src="/static/js/jquery.backgroundpos.min.js"></script>
+    <script src="/static/js/jquery.tweet.js"></script>
+    <script src="/static/js/jquery.prettyPhoto_fitcraft.js"></script>
+    <!--<script src="/static/js/script.js"></script>-->
+    <script>
+{% load staticfiles %}
+// date for countdown
+startdate = "January 31, 2014 15:00:00";
+// twitter username for @latest tweets
+twitter_username = "PwegoCinema";
+tweets_count = 5;
+twitter_avatar_size = 32;
+// time between animation frames the more the number, the slower clouds go
+clouds_speed = 90;
+cloud_step = 1;
+
+jQuery(document).ready(function ($) {
+
+  var $win = $(window), $clouds = $('#clouds'), $beasts = $('.beast');
+
+  // twitter settings
+  if ($.isFunction($.fn.tweet)) {
+    $("#tweets_list").tweet({
+      username: window.twitter_username,
+      avatar_size: window.twitter_avatar_size,
+      count: window.tweets_count,
+      loading_text: "loading tweets...",
+      template: '{avatar} {text}{time}'
+    });
+  }
+  // photo lightbox settings
+  if ($.isFunction($.fn.prettyPhoto)) {
+    $("a[data-rel^='prettyPhoto']").prettyPhoto({deeplinking: false, overlay_gallery: false});
+  }
+
+  // preloading of images
+  var preload = ["clouds.png", "beasts.png", "grass.png", "grass_bg1.png", "mountains1.png", "mountains2.png",
+                 "mountains3.png"];
+
+  // init all movements when images are loaded
+  $win.on('init.elustro', function () {
+    $('#preloader').remove();
+    $('#content-container').show();
+    initBeasts();
+    initClouds();
+  });
+
+  var promises = [];
+  for (i = 0; i < preload.length; i++) {
+    (function (url, promise) {
+      var img = new Image();
+      img = new Image();
+      img.onload = function () {
+        promise.resolve();
+      };
+      img.src = '/static/img/' + url;
+    })(preload[i], promises[i] = $.Deferred());
+  }
+  $.when.apply($, promises).done(function () {
+    $win.trigger('init.elustro');
+  });
+
+  function initBeasts() {
+    $beasts.each(function () {
+      var self = $(this);
+
+      self.data('beast-height', self.height());
+    });
+    // release the beast!
+    moveBeast($beasts.eq(0), 1);
+  }
+
+  function moveBeast($beast, direction) {
+    // vars for hiding the beast
+    var targetPosition = $beast.data('beast-height'), speed = getRandomInt(200,
+      500), bg_hor_offset = get_bg_offset($beast);
+
+    if ($win.data('beast-timeout')) {
+      clearTimeout($win.data('beast-timeout'));
+    }
+
+    // set vars for rising of the beast
+    if (direction) {
+      var screenWidth = $win.width();
+      // hide current
+      $beast.hide();
+      // choose the other beast
+      $beast = $beasts.not($beast);
+      $beast.show();
+      // here we choose the beast pic
+      var positions = ['0%', '25%', '50%', '75%'], temp = bg_hor_offset;
+      // make sure no beast get loaded twice
+      while (temp == bg_hor_offset) {
+        bg_hor_offset = positions[getRandomInt(0, 3)];
+      }
+
+      //set random horizontal position on screen
+      var beast_left_offset = getRandomInt(screenWidth * .2, screenWidth * .8);
+      // target position for rising is zero
+      targetPosition = 0;
+      speed = 4000;
+
+      //hide the beast and move him horizontally
+      $beast.css({'background-position': bg_hor_offset + ' ' + $beast.data('beast-height')
+        + 'px', 'left': beast_left_offset});
+    }
+    $beast.animate({'background-position': bg_hor_offset + ' ' + targetPosition + 'px'}, speed);
+
+    // rerun animation after 1-2 seconds
+    $win.data('beast-timeout', setTimeout(function () {
+      moveBeast($beast, !direction)
+    }, getRandomInt(700, 2000) + speed));
+  }
+
+
+  function initClouds() {
+    if ($clouds.data('el-interval')) {
+      clearInterval($clouds.data('el-interval'));
+    }
+    $clouds.data('curpos', 0).data('el-interval', setInterval(moveClouds, window.clouds_speed));
+  }
+
+  function moveClouds() {
+    var cur_pos = $clouds.data('curpos');
+    cur_pos -= window.cloud_step;
+    if (cur_pos < -1150) {
+      cur_pos = 0;
+    }
+    // move the background with backgrond-position css properties
+    $clouds.css("backgroundPosition", cur_pos + "px 0").data('curpos', cur_pos);
+  }
+
+  // initing countdown on fake tmer, that is not visible. it updates the real timer
+  if ($.isFunction($.fn.countdown)) {
+    $('#fake_timer').countdown({until: new Date(window.startdate), compact: true, onTick: updateTimer});
+  }
+
+  // update the real timer
+  function updateTimer(time) {
+    time.splice(0, 3);
+    var ar = [];
+    $.each(time, function (k, v) {
+      ar.push(v.toString())
+    });
+
+    var nums = [];
+    $.each(ar, function (k, v) {
+      switch (k) {
+        case 0: // days
+          while (v.length < 3) {
+            v = '0' + v;
+          }
+          break;
+        default:
+          while (v.length < 2) {
+            v = '0' + v;
+          }
+      }
+
+      $.each(v, function (key, val) {
+        nums.push(val)
+      });
+    });
+
+    $('#countdown .digit').each(function (k) {
+      var obj = $(this).find('span');
+      // no need to change the digit
+      if (obj.eq(0).text() == nums[k]) {
+        return true;
+      }
+      /** Animate numbers **/
+      obj.eq(1).text(nums[k]).animate({opacity: 1});
+      obj.eq(0).animate({'margin-top': -45, opacity: 0}, 960, function () {
+        var parent = $(this).parent();
+        $(this).remove();
+        $('<span/>').css({opacity: 0}).appendTo(parent);
+      });
+    });
+  }
+
+  // returns horizontal value of CSS background-position (for beasts)
+  function get_bg_offset($obj) {
+    var bgpos = $obj.css('background-position');
+    if (!bgpos) {
+      return 0;
+    }
+    return bgpos.split(' ')[0];
+  }
+
+  /**
+   * Returns a random integer between min and max
+   * Using Math.round() will give you a non-uniform distribution!
+   */
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+
+  /** 404 page scripts **/
+  var $container = $('#content-container'), mountains = $('.mountains3');
+
+  function updateCloudsHeight() {
+    if ($win.height() > 640) {
+      var delta = $win.height() - $container.height();
+
+      var mntMargin = parseInt(mountains.css('margin-top')), cloudsMargin = parseInt($clouds.css('top')) || 0;
+      mountains.css('margin-top', (mntMargin + delta) + 'px');
+      $clouds.css('top', (cloudsMargin + delta) + 'px');
+    }
+  }
+
+  if ($('body').hasClass('page-404')) {
+    $win.on('resize.elustro ready', updateCloudsHeight);
+  }
+
+});
+
+    </script>
+    <div id="fake_timer" style="display:none"></div>
+    <div class="pattern"></div>
+</div>
+<!-- .content-container -->
+</body>
+</html>

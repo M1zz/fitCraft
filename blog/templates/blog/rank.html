@@ -1,52 +1,86 @@
-{% extends "admin_base.html"%}
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register fityou</title>
+    {% load staticfiles %}
+    <!--<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>-->
+    <script>
+    function cancel() {
+        location.href="/home";
+    }
+    </script>
+    <link rel="stylesheet" href="/static/css/table_style.css">
+    <!-- Bootstrap core CSS -->
+    
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-{% block content %}
-<br>
-<table cellspacing=1 width=700 class="table" style="font-family:'sans serif'">
+
+    </head>
+    <body>
+<div>
+<a href = "/fitcraft" class="btn btn-warning btn-large">
+     Home
+</a>
+<a href = "/sleepRank" class="btn btn-warning btn-large">
+     Sleep Rank
+</a>
+<a href = "/heartRank" class="btn btn-warning btn-large">
+     Heart Rank
+</a>
+
+
+<table cellspacing=2 class="table">
+    <thead class="table-fill">
     <tr>
-        <td width=30><p align=center>Rank</p>
-        </td>
-        <td width=150><p align=center>User Name</p>
-        </td>
-        <td width=100><p align=left>Fit point</p>
-        </td>
+        <th class="text-left" style="width: 20%;text-align:center;">Rank</td>
+        <th class="text-left" style="width: 50%;text-align:center;">User Name</td>
+        <th class="text-left" style="width: 30%;text-align:center;">Fit point</td>
     </tr>
+    </thead>
+    <tbody>
     {% if idList %}        
-        <ul>
             {% for i in idList %}
                 {% for j in pointList %}
                 {% if forloop.counter == forloop.parentloop.counter %}
             <tr>
                     {% if forloop.counter == 1 %}
-                    <td width=50><p align=center>{{ forloop.counter }}</p></td>
-                    <td width=300><p align=center>♛ <b style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF">{{ i }}</b></p></td>
-                    <td width=110><p align=right></p>{{ j }}</td>
+                    <td class="text-left" style="width: 20%;text-align:center;" scope="row">{{ forloop.counter }}</td>
+                    <td style="width: 50%;text-align:center;" scope="row">♛ <b style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF">{{ i }}</b></td>
+                    <td style="width: 30%;text-align:center;" scope="row">{{ j }}</td>
                     {% elif forloop.counter == 2 %}
-                    <td width=50><p align=center>{{ forloop.counter }}</p></td>
-                    <td width=300><p align=center><b style="text-shadow: 0 0 3px #FF0000">{{ i }}</b></p></td>
-                    <td width=110><p align=right></p>{{ j }}</td>
+                    <td style="width: 20%;text-align:center;" scope="row">{{ forloop.counter }}</td>
+                    <td style="width: 50%;text-align:center;" scope="row"><b style="text-shadow: 0 0 3px #FF0000">{{ i }}</b></td>
+                    <td style="width: 30%;text-align:center;" scope="row">{{ j }}</td>
                     {% elif forloop.counter == 3 %}
-                    <td width=50><p align=center>{{ forloop.counter }}</p></td>
-                    <td width=300><p align=center><b style="text-shadow: 2px 2px 4px #000000">{{ i }}</b></p></td>
-                    <td width=110><p align=right></p>{{ j }}</td>
+                    <td style="width: 20%;text-align:center;" scope="row">{{ forloop.counter }}</td>
+                    <td style="width: 50%;text-align:center;" scope="row"><b style="text-shadow: 2px 2px 4px #000000">{{ i }}</b></td>
+                    <td style="width: 30%;text-align:center;" scope="row">{{ j }}</td>
                     {% else %}
-                    <td width=50><p align=center>{{ forloop.counter }}</p></td>
-                    <td width=300><p align=center>{{ i }}</p></td>
-                    <td width=110><p align=right></p>{{ j }}</td>                
+                    <td style="width: 20%;text-align:center;" scope="row">{{ forloop.counter }}</td>
+                    <td style="width: 50%;text-align:center;" scope="row">{{ i }}</td>
+                    <td style="width: 30%;text-align:center;" scope="row">{{ j }}</td>
                     {% endif %}
                 {% endif %}
             </tr>
                 {% endfor %}
             {% endfor %}
-        </ul>
+    <tbody>
     {% else %}
         <p>No Data.</p>
     {% endif %}
-    <a href = "/home" class="btn btn-primary btn-large">
-         Home
-    </a>
-
 </table>
 
+<!--<a href = "/fitapp/home" class="btn btn-warning btn-large">
+     Home
+</a>-->
 
-{% endblock %}
+</div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+ 
+</body>
+
+</html>
+
+

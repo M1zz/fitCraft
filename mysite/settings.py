@@ -108,3 +108,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # fitbit setting
 FITAPP_CONSUMER_KEY = '227WVV'
 FITAPP_CONSUMER_SECRET = '3a2403a52559951495dc0d8ebe5d6bd3'
+FITAPP_LOGIN_REDIRECT = '/fitapp/home'
+
+# GOOGLE Setiing
+GOOGLE_OAUTH2_CLIENT_ID = '1002863805536-np8cgs4rnii8asil13mt1tnskpdbe3ra.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET = 'xxDVrR-hiaY9_ltXJFJXTqs8'
+

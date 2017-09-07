@@ -1,10 +1,19 @@
-{% extends "admin_base.html"%}
-
-{% block content %}
+<html>
+    <head>
+    <script>
+        function myFunction() {
+            alert("logged out!");
+            location.href="/home";
+        }
+        </script>
+    </head>
+    <body onload="myFunction()">
+    <br>
     <br><br>
-    <h2>You have registered!</h2>
+    <!--<h2>You have registered!</h2>
     <a href = "/login" class="btn btn-primary btn-large">
         Login
-    </a>
-{% endblock %}
+    </a>-->
+    </body>
+</html>
 

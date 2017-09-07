@@ -1,0 +1,1 @@
+sudo scp -r ./data/ hyunholee@168.188.125.118:/home/hyunholee/workspace/fitcraft_data/

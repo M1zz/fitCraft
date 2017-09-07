@@ -56,15 +56,26 @@ def register(request):
 def fitcraft(request):
     return render(request, 'blog/fitcraft/fitcraft.html', {})
 
+def xiaomi(request):
+    return render(request, 'blog/fitcraft/xiaomi.html', {})
+
 def item(request):
     return render(request, 'blog/fitcraft/item.html', {})
 
 def howToPlay(request):
-    print "how to play"
     return render(request, 'blog/fitcraft/howToPlay.html', {})
+
+def tool(request):
+    return render(request, 'blog/fitcraft/tool.html', {})
+
+def vi_python(request):
+    return render(request, 'blog/fitcraft/vi_python.html', {})
 
 def sync(request):
     return render(request, 'blog/fitcraft/sync.html', {})
+
+def logs(request):
+    return render(request, 'blog/fitcraft/stats.html', {})
 
 def note(request):
     return render(request, 'blog/fitcraft/note.html', {})
@@ -105,6 +116,8 @@ def listSpecificPageWork(request):
 def get_rank(request):
     idData = []
     pointData = []
+    sleepData = []
+    heartData = []
     idList = User.objects.all()
     pointList = Profile.objects.all()
     rangeList = range(User.objects.all().count())
@@ -114,6 +127,8 @@ def get_rank(request):
         ranking[idList[i].username] = pointList[i].fitPoint
         idData.append(idList[i].username)
         pointData.append(pointList[i].fitPoint)
+        sleepData.append(pointList[i].fitSleep)
+        heartData.append(pointList[i].fitHeart)
         #print idData , pointData
     ranking = sorted(ranking.iteritems(), key=itemgetter(1), reverse=True)
     # init list
@@ -125,8 +140,62 @@ def get_rank(request):
         pointData.append(sep[1])
     print ranking
     pointList = Profile.objects.raw('SELECT fitPoint FROM blog_profile ')
-    return render_to_response('blog/rank.html', {'idList': idData, 'pointList': pointData} )
-    
+    return render_to_response('blog/rank.html', {'idList': idData, 'pointList': pointData, 'sleepList': sleepData, 'heartList':heartData} )
+   
+def get_heartRank(request):
+    idData = []
+    sleepData = []
+    idList = User.objects.all()
+    heartList = Profile.objects.all()
+    rangeList = range(User.objects.all().count())
+    #print "idList",idList
+    ranking = {}
+    for i in range(User.objects.all().count()):
+        ranking[idList[i].username] = heartList[i].fitHeart
+        idData.append(idList[i].username)
+        sleepData.append(heartList[i].fitHeart)
+        #print idData , pointData
+    ranking = sorted(ranking.iteritems(), key=itemgetter(1), reverse=True)
+    print ranking
+    # init list
+    idData = []
+    heartData = []
+    for sep in ranking:
+        idData.append(sep[0])
+        heartData.append(sep[1])
+    print ranking
+    heartList = Profile.objects.raw('SELECT fitHeart FROM blog_profile ')
+    return render_to_response('blog/heartRank.html', {'idList': idData, 'heartList': heartData} )
+
+
+def get_sleepRank(request):
+    idData = []
+    sleepData = []
+    idList = User.objects.all()
+    sleepList = Profile.objects.all()
+    rangeList = range(User.objects.all().count())
+    print "idList",idList
+    ranking = {}
+    for i in range(User.objects.all().count()):
+        ranking[idList[i].username] = sleepList[i].fitSleep
+        idData.append(idList[i].username)
+        sleepData.append(sleepList[i].fitSleep)
+        #print idData , pointData
+    ranking = sorted(ranking.iteritems(), key=itemgetter(1), reverse=True)
+    print ranking
+    # init list
+    idData = []
+    sleepData = []
+    for sep in ranking:
+        idData.append(sep[0])
+        sleepData.append(sep[1])
+    print ranking
+    sleepList = Profile.objects.raw('SELECT fitSleep FROM blog_profile ')
+    return render_to_response('blog/sleepRank.html', {'idList': idData, 'sleepList': sleepData} )
+
+
+
+ 
 
 def viewWork(request):
     pk= request.GET['memo_id']
@@ -155,9 +224,9 @@ def auth_view(request):
 
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('blog/loggedin')
+        return HttpResponseRedirect('/fitcraft')
     else :
-        return HttpResponseRedirect('blog/invalid')
+        return HttpResponseRedirect('/login',{'login_flag':"fail"})
 
 def loggedin(request):
     return render_to_response('blog/loggedin.html',{'full_name':request.user.username})
@@ -185,3 +254,6 @@ def register(request):
 
 def register_success(request):
     return render_to_response('blog/register_success.html')
+
+def analysis(request):
+    return render(request, 'blog/analysis/index.html', {})

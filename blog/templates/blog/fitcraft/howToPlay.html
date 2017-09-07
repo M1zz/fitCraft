@@ -1,30 +1,352 @@
-{% extends "admin_base.html" %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {% load staticfiles %}
+	<title>How to play the Fitcraft</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
+	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+	<meta name="author" content="gettemplates.co" />
 
-{% block content %}
-    <br>
-    <div align ="center">
-    <h2>How to play fitcraft</h2>
-    <img src="/static/image/fitcoin.png"><br><br>
-    <p style="font-family:'sans serif'">
-        피트 크래프트는 반 야생 서버로 마크에서 몇가지 플러그인만 추가한 서버입니다.<br>
-        다른 플러그인, 모드들과 가장 큰 차이점은 웨어러블 디바이스(FITBIT)를 이용하여<br>
-        수집한 걸음 수가 마인크래프트 내부에서 화폐인 <b>FITCOIN</b>으로 교환 된다는 것 입니다.<br> 
-        이 <b>FITCOIN</b>은 기존 서버에서는 만들 수 없었던 아이템들을 구매할 수 있으며,<br>
-        또한 플레이 할 때 지겹게 반복하여 노가다를 해서 얻어야 할 아이템들을 구매할 수 있습니다.<br> 
-        즉 운동을 한 시간만큼 아이템을 구매할 수 있는것 입니다. <br>
-        집을 짓기위한 방법이 컴퓨터 앞에 않아서 땅을 파는 것 뿐만이 아닌, <br>
-        밖에 나가서 동네 한 바퀴를 뛰고 오면 그 시간만큼을 아이템으로 보상받아 집을 지을 수 있습니다. <br>
-        이 얼마나 멋진 방법입니까! 때로는 현실에서 때로는 가상에서 피트 크래프를 이용하여 마크세상에서 <br> 살아남아 나의 영토를 만들어 보세요! <br><br>
-        
-        <b>서버 주소 : sokulee.xyz</b>
-    </p>
-   </div>
-    <a href = "/home" class="btn btn-primary btn-large">
-        Home
-    </a>
-    <a href = "/fitcraft" class="btn btn-primary btn-large">
-        Back
-    </a>
-    
-{% endblock %}
-~                
+	<!--
+		Oxygen by gettemplates.co
+		Twitter: http://twitter.com/gettemplateco
+		URL: http://gettemplates.co
+	-->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'> -->
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="/static/css/fitcraft_animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="/static/css/fitcraft_icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="/static/css/fitcraft_bootstrap.css">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="/static/css/fitcraft_magnific-popup.css">
+
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="/static/css/fitcraft_owl.carousel.min.css">
+	<link rel="stylesheet" href="/static/css/fitcraft_owl.theme.default.min.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="/static/css/fitcraft_style.css">
+
+	<!-- Modernizr JS -->
+	<script src="/static/js/fitcraft_modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+		
+	<div class="gtco-loader"></div>
+	
+	<div id="page">
+	<nav class="gtco-nav" role="navigation">
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-xs-2">
+					<div id="gtco-logo"><a href="/fitcraft">Fitcraft.</a></div>
+				</div>
+				<div class="col-xs-8 text-center menu-1">
+					<ul>
+						<li><a href="/fitcraft">Home</a></li>
+						<li><a href="/fitcraft/tool">Tools</a></li>
+                                                <li class="active"><a href="/fitcraft/howToPlay">Play</a></li>
+                                                <li><a href="/fitapp/home">Fitcoin</a></li>
+						<li><a href="/fitcraft/logs">Rank</a></li>
+                                                <li><a href="/rank">Step</a></li>
+						<li><a href="/home">Developers</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-2 text-right hidden-xs menu-2">
+					{% if user.is_authenticated %}
+					<ul>
+							<li class="btn-cta"><a href="/logout"><span>Logout</span></a></li>
+							[{{ user.username }} | {{ user.profile.fitPoint }} Point]
+					</ul>
+					
+
+					{% else%}
+					<ul>
+							<li class="btn-cta"><a href="/login"><span>Login</span></a></li>
+					</ul>&nbsp;
+					<ul>
+							<li class="btn-cta"><a href="/register"><span>Register</span></a></li>
+					</ul>
+					{% endif %}
+				</div>
+			</div>
+			
+		</div>
+	</nav>
+
+	<header id="gtco-header" class="gtco-cover gtco-cover-sm" role="banner" style="background-image:url(/static/images/img_bg_1.jpg);">
+
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+							<h1>How to Play the Fitcraft</h1>
+							<h2>The rules and functions</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<div class="gtco-section">
+		<div class="gtco-container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center gtco-heading gtco-heading-sm">
+					<h2>Basic Rules</h2>
+				</div>
+			</div>
+			<div class="row animate-box">
+				<div class="col-md-6">
+					<p>게임방식은 기본적인 마인크래프트와 같으며 가장 오래 살아남은 사람이 승리하는 게임입니다. 농사를 지으며, 건물을 짓고, 광물을 캐면서 생존하세요! 승리를 거머쥐는 방법은 간단합니다. 오래 살아남으세요!
+                                        </p>
+					<p>걸음수는 Fitcoin으로 교환될 수 있습니다. Fitcoin은 Fitcraft의 기본화폐로 게임내에서 물건을 사거나 아이템을 만들 때 사용됩니다. 사용하려면 우선 코인을 받아야겠죠? Fitcoin을 받기위해서는 플레이어의 걸음수를 Fitcraft와 동기화 해주어야 합니다.<br><a href="/fitapp/home">Fitcoin 얻으러가기</a></p>
+				</div>
+				<div class="col-md-6">
+					<p>The game method is the same as the basic Minecraft,
+It is a game to play. Build farming, build buildings, and live minerals! The way to win is simple. Stay alive for a long time!</p>
+                                        <p>The number of steps can be exchanged for Fitcoin. Fitcoin is the base currency of Fitcraft and is used to buy things or create items in-game. Do you need a coin to use it? In order to receive Fitcoin, you need to synchronize the player's steps with Fitcraft.<br><a href="/fitapp/home">Get a Fitcoin</a>
+                                        </p>
+					<!--<p><a href="#" class="btn btn-primary">Our Services</a></p>-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="gtco-cover gtco-cover-sm" style="background-image:url(/static/images/img_bg_3.jpg);">
+		<div class="overlay"></div>
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+							<h1>How to use Fitcoin</h1>
+							<h2>The way to consume fitcoin.</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div class="gtco-section">
+                <div class="gtco-container">
+                        <div class="row animate-box">
+                                <div class="col-md-8 col-md-offset-2 text-center gtco-heading gtco-heading-sm">
+                                        <h2>Basic Rules</h2>
+                                </div>
+                        </div>
+                        <div class="row animate-box">
+                                <div class="col-md-6">
+                                        <p>게임방식은 기본적인 마인크래프트와 같으며 가장 오래 살아남은 사람이 승리하는 게임입니다. 농사를 지으며, 건물을 짓고, 광물을 캐면>서 생존하세요! 승리를 거머쥐는 방법은 간단합니다. 오래 살아남으세요!
+                                        </p>
+                                        <p>걸음수는 Fitcoin으로 교환될 수 있습니다. Fitcoin은 Fitcraft의 기본화폐로 게임내에서 물건을 사거나 아이템을 만들 때 사용됩니다. 사
+용하려면 우선 코인을 받아야겠죠? Fitcoin을 받기위해서는 플레이어의 걸음수를 Fitcraft와 동기화 해주어야 합니다.<br><a href="/fitapp/home">Fitcoin 얻으러가기</a></p>
+                                </div>
+                                <div class="col-md-6">
+                                        <p>The game method is the same as the basic Minecraft,
+It is a game to play. Build farming, build buildings, and live minerals! The way to win is simple. Stay alive for a long time!</p>
+                                        <p>The number of steps can be exchanged for Fitcoin. Fitcoin is the base currency of Fitcraft and is used to buy things or create items in-game. Do you need a coin to use it? In order to receive Fitcoin, you need to synchronize the player's steps with Fitcraft.<br><a href="/fitapp/home">Get a Fitcoin</a>
+                                        </p>
+                                        <!--<p><a href="#" class="btn btn-primary">Our Services</a></p>-->
+                                </div>
+                        </div>
+                </div>
+        </div>
+
+	<div id="gtco-team" class="gtco-section">
+		<div class="gtco-container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+					<h2>Our Team</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 animate-box" data-animate-effect="fadeIn">
+					<div class="gtco-staff">
+						<img src="/static/images/person_1.jpg" alt="Free HTML5 Templates by gettemplates.co">
+						<h3>Jean Smith</h3>
+						<strong class="role">Web Designer</strong>
+						<p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
+						<ul class="gtco-social-icons">
+							<li><a href="#"><i class="icon-facebook"></i></a></li>
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+							<li><a href="#"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4 animate-box" data-animate-effect="fadeIn">
+					<div class="gtco-staff">
+						<img src="/static/images/person_2.jpg" alt="Free HTML5 Templates by gettemplates.co">
+						<h3>Hush Raven</h3>
+						<strong class="role">Front-end Developer</strong>
+						<p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
+						<ul class="gtco-social-icons">
+							<li><a href="#"><i class="icon-facebook"></i></a></li>
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+							<li><a href="#"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4 animate-box" data-animate-effect="fadeIn">
+					<div class="gtco-staff">
+						<img src="/static/images/person_3.jpg" alt="Free HTML5 Templates by gettemplates.co">
+						<h3>Alex King</h3>
+						<strong class="role">Back-end Developer</strong>
+						<p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
+						<ul class="gtco-social-icons">
+							<li><a href="#"><i class="icon-facebook"></i></a></li>
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+							<li><a href="#"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="gtco-started">
+		<div class="gtco-container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+					<h2>Get Started</h2>
+				</div>
+			</div>
+			<div class="row animate-box">
+				<div class="col-md-12">
+					<form class="form-inline">
+						<div class="col-md-4 col-sm-4">
+							<div class="form-group">
+								<label for="email" class="sr-only">Email</label>
+								<input type="email" class="form-control" id="email" placeholder="Email">
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+							<div class="form-group">
+								<label for="password" class="sr-only">Password</label>
+								<input type="password" class="form-control" id="password" placeholder="Password">
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+							<button type="submit" class="btn btn-default btn-block">Sign Up</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer id="gtco-footer" role="contentinfo">
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-md-4 gtco-widget">
+					<h3>The Company</h3>
+					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+					<p><a href="#">Learn More</a></p>
+				</div>
+				<div class="col-md-2 col-md-push-1">
+					<ul class="gtco-footer-links">
+						<li><a href="#">About</a></li>
+						<li><a href="#">Help</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">Terms</a></li>
+						<li><a href="#">Meetups</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-md-push-1">
+					<ul class="gtco-footer-links">
+						<li><a href="#">Shop</a></li>
+						<li><a href="#">Privacy</a></li>
+						<li><a href="#">Testimonials</a></li>
+						<li><a href="#">Handbook</a></li>
+						<li><a href="#">Held Desk</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-md-push-1">
+					<ul class="gtco-footer-links">
+						<li><a href="#">Find Designers</a></li>
+						<li><a href="#">Find Deelopers</a></li>
+						<li><a href="#">Teams</a></li>
+						<li><a href="#">Advertise</a></li>
+						<li><a href="#">API</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row copyright">
+				<div class="col-md-12">
+					<p class="pull-left">
+						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small> 
+						<small class="block">Designed by <a href="http://gettemplates.co/" target="_blank">GetTemplates.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+					</p>
+					<p class="pull-right">
+						<ul class="gtco-social-icons pull-right">
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+							<li><a href="#"><i class="icon-facebook"></i></a></li>
+							<li><a href="#"><i class="icon-linkedin"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+	
+	<!-- jQuery -->
+	<script src="/static/js/fitcraft_jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="/static/js/fitcraft_jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="/static/js/fitcraft_bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="/static/js/fitcraft_jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="/static/js/fitcraft_owl.carousel.min.js"></script>
+	<!-- countTo -->
+	<script src="/static/js/fitcraft_jquery.countTo.js"></script>
+	<!-- Magnific Popup -->
+	<script src="/static/js/fitcraft_jquery.magnific-popup.min.js"></script>
+	<script src="/static/js/fitcraft_magnific-popup-options.js"></script>
+	<!-- Main -->
+	<script src="/static/js/fitcraft_main.js"></script>
+
+	</body>
+</html>
+

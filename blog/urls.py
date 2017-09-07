@@ -18,10 +18,18 @@ urlpatterns = [
     url(r'^fitcraft/item', views.item, name='item'),
     url(r'^fitcraft/sync', views.sync, name='sync'),
     url(r'^fitcraft/howToPlay', views.howToPlay, name='howToPlay'),
+    url(r'^fitcraft/tool', views.tool, name='tool'),
     url(r'^fitcraft/note', views.note, name='note'),
+    url(r'^fitcraft/logs$', views.logs, name='logs'),
+    url(r'^fitcraft/python$', views.vi_python, name='python'),
+
+    # analysis
+    url(r'^analysis$', views.analysis, name='analysis'),
 
     # board
     url(r'^rank$', views.get_rank, name='fit_rank'),
+    url(r'^sleepRank$', views.get_sleepRank, name='sleep_rank'),
+    url(r'^heartRank$', views.get_heartRank, name='heart_rank'),
     url(r'^fit_board$', views.fit_board, name='fit_board'),
     url(r'^show_write_form$', views.show_write_form, name='board_write'),
     url(r'^DoWriteBoard$', views.DoWriteBoard, name='DoWriteBoard'),

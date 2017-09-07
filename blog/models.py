@@ -32,9 +32,14 @@ class DjangoBoard(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     fitPoint = models.IntegerField(default = 0)
+    fitSleep = models.IntegerField(default = 0)
+    fitHeart = models.IntegerField(default = 0)
     today       = datetime.date.today()
+    # for the test
     yesterday   = today - datetime.timedelta(2)
+    #yesterday = "2017-03-09 00:00:00"
     last_sync_date = models.DateTimeField(blank=True,default = yesterday)
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
